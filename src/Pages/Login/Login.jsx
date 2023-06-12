@@ -2,6 +2,7 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import loginGif from "../../assets/login-gif.gif";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const Login = () => {
     const [passHidden, setPassHidden] = useState(true);
@@ -39,9 +40,10 @@ const Login = () => {
 
                     <p>Don't have an account? <Link to={"/register"}><span className="text-blue-600 font-bold">Register.</span></Link></p>
                 </form>
-                <p className="text-center text-gray-500 text-xs">
-                    google
+                <p className="text-center text-lg">
+                    --- OR ---
                 </p>
+                <SocialLogin />
             </div>
 
             <div className="sm:w-1/2">
