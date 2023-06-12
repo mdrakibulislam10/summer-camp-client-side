@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import logo from "../../../../src/assets/fight-club-logo.png";
 import { useState } from "react";
+import { FaUser } from "react-icons/fa";
+
 
 const Navbar = () => {
     const [isHidden, setIsHidden] = useState(true);
@@ -42,7 +44,9 @@ const Navbar = () => {
                         <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
 
                             <div className="relative ml-3">
-                                <div>
+                                <div className="flex gap-2">
+                                    <Link to={"/login"}><button className="btn btn-sm btn-active font-bold">Login <FaUser /> </button></Link>
+
                                     <button type="button" className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                         <span className="sr-only">Open user menu</span>
                                         <img className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
