@@ -1,9 +1,10 @@
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import loginGif from "../../assets/login-gif.gif";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Login = () => {
-    const [isHidden, setIsHidden] = useState(true);
+    const [passHidden, setPassHidden] = useState(true);
 
     return (
         <section className="flex flex-col-reverse md:flex-row justify-between items-center gap-2 mx-1 md:mx-10 my-6">
@@ -21,20 +22,22 @@ const Login = () => {
                             Password
                         </label>
                         <div className="flex relative">
-                            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type={isHidden ? "password" : "text"} placeholder="Enter Password" />
+                            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type={passHidden ? "password" : "text"} placeholder="Enter Password" />
                             {
-                                isHidden
-                                    ? <FaRegEyeSlash onClick={() => setIsHidden(!isHidden)} className="absolute end-1 top-3 text-xl" />
-                                    : <FaRegEye onClick={() => setIsHidden(!isHidden)} className="absolute end-1 top-3 text-xl" />
+                                passHidden
+                                    ? <FaRegEyeSlash onClick={() => setPassHidden(!passHidden)} className="absolute end-1 top-3 text-xl" />
+                                    : <FaRegEye onClick={() => setPassHidden(!passHidden)} className="absolute end-1 top-3 text-xl" />
                             }
 
                         </div>
                     </div>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between mb-4">
                         <button className="bg-blue-500 hover:bg-blue-700 w-full text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
                             Login
                         </button>
                     </div>
+
+                    <p>Don't have an account? <Link to={"/register"}><span className="text-blue-600 font-bold">Register.</span></Link></p>
                 </form>
                 <p className="text-center text-gray-500 text-xs">
                     google
