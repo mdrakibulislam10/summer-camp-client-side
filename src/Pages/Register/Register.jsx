@@ -5,14 +5,41 @@ import loginGif from "../../assets/login-gif.gif";
 import SocialLogin from "../../components/SocialLogin/SocialLogin";
 import { useForm } from "react-hook-form";
 
+const img_hosting_token = import.meta.env.VITE_IMAGE_UPLOAD_TOKEN;
+// console.log(img_hosting_token);
+
 const Register = () => {
     const [passHidden, setPassHidden] = useState(true);
     const [confirmPassHidden, setConfirmPassHidden] = useState(true);
+    const [passDonTMatch, setPassDonTMatch] = useState("");
+
+    const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = data => {
+        if (data.password !== data.confirmPassword) {
+            setPassDonTMatch("Password don't match. Please try again.");
+            return;
+        }
+        setPassDonTMatch("");
         console.log(data);
+
+        const formData = new FormData();
+        formData.append("image", data.photo[0]);
+
+        fetch(img_hosting_url, {
+            method: "POST",
+            body: formData,
+        })
+            .then(res => res.json())
+            .then(imgResponse => {
+                console.log(imgResponse);
+                if (imgResponse.success) {
+                    const imgURL = imgResponse.data.display_url;
+                    console.log(imgURL);
+                }
+            })
     };
 
     return (
@@ -83,13 +110,14 @@ const Register = () => {
                         {
                             errors.confirmPassword?.type === 'required' && <p className="text-red-600 italic">Confirm Password is required.</p>
                         }
+                        <p className="text-red-600 italic">{passDonTMatch}</p>
                     </div>
 
                     <div className="mb-7">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
                             Upload Image
                         </label>
-                        <input {...register("photo", { required: true })} className="block w-full text-sm text-gray-900 border border-gray-300 rounded cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-200" aria-describedby="file_input_help" id="file_input" type="file"></input>
+                        <input {...register("photo", { required: true })} className="mb-2 block w-full text-sm text-gray-900 border border-gray-300 rounded cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-200" aria-describedby="file_input_help" id="file_input" type="file"></input>
 
                         {
                             errors.photo?.type === 'required' && <p className="text-red-600 italic">Photo is required.</p>
