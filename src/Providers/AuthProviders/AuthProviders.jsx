@@ -36,7 +36,7 @@ const AuthProviders = ({ children }) => {
             setLoading(false);
 
             if (currentUser) {
-                console.log(currentUser);
+                // console.log(currentUser);
                 const { displayName, email, photoURL } = currentUser;
                 const saveUser = {
                     name: displayName,
@@ -49,7 +49,7 @@ const AuthProviders = ({ children }) => {
                     .then(res => {
                         const data = res.data;
                         if (res.data.insertedId) {
-                            console.log(res.data.insertedId);
+                            // console.log(res.data.insertedId);
                         }
                     })
             }

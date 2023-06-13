@@ -18,7 +18,7 @@ const Dashboard = () => {
                 </button>
 
                 <p>
-                    <Link to={"/"} className="text-xl font-bold text-orange-600 uppercase">Fight Club</Link>
+                    <Link to={"/"} className="text-xl font-bold text-sky-600 uppercase">Fight Club</Link>
                 </p>
             </div>
             <div className="flex">
