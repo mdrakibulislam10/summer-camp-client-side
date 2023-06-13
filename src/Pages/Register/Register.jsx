@@ -4,27 +4,34 @@ import { Link } from "react-router-dom";
 import loginGif from "../../assets/login-gif.gif";
 import SocialLogin from "../../components/SocialLogin/SocialLogin";
 import { useForm } from "react-hook-form";
+import useAuth from "../../hooks/useAuth";
+import swal from "sweetalert";
 
 const img_hosting_token = import.meta.env.VITE_IMAGE_UPLOAD_TOKEN;
 // console.log(img_hosting_token);
 
 const Register = () => {
+    const { signUp, userProfileUp } = useAuth();
     const [passHidden, setPassHidden] = useState(true);
     const [confirmPassHidden, setConfirmPassHidden] = useState(true);
     const [passDonTMatch, setPassDonTMatch] = useState("");
+    const [imgURL, setImgURL] = useState(null);
 
     const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = data => {
-        if (data.password !== data.confirmPassword) {
+        const { name, email, password, confirmPassword } = data;
+
+        if (password !== confirmPassword) {
             setPassDonTMatch("Password don't match. Please try again.");
             return;
         }
         setPassDonTMatch("");
         console.log(data);
 
+        // get photo
         const formData = new FormData();
         formData.append("image", data.photo[0]);
 
@@ -36,9 +43,26 @@ const Register = () => {
             .then(imgResponse => {
                 console.log(imgResponse);
                 if (imgResponse.success) {
-                    const imgURL = imgResponse.data.display_url;
-                    console.log(imgURL);
+                    const userImage = imgResponse.data.display_url;
+                    setImgURL(userImage);
                 }
+            })
+
+        // sign up
+        signUp(email, password)
+            .then(result => {
+                userProfileUp(name, imgURL)
+                    .then(() => {
+                        swal("Welcome!", "Sign Up Successfully!", "success");
+                        // swal("Something went wrong!", `${err.message}`, "error");
+                        console.log(result.user);
+                    })
+                    .catch(err => {
+                        swal("Something went wrong!", `${err.message}`, "error");
+                    })
+            })
+            .catch(err => {
+                swal("Something went wrong!", `${err.message}`, "error");
             })
     };
 

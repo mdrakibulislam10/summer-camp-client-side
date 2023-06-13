@@ -2,10 +2,13 @@ import { Link } from "react-router-dom";
 import logo from "../../../../src/assets/fight-club-logo.png";
 import { useState } from "react";
 import { FaUser } from "react-icons/fa";
+import useAuth from "../../../hooks/useAuth";
 
 
 const Navbar = () => {
+    const { user } = useAuth();
     const [isHidden, setIsHidden] = useState(true);
+    console.log(user);
 
     const navMenu = <>
         <Link to={"/"} className="text-white uppercase rounded-md px-3 py-2 font-bold text-2xl md:text-3xl" aria-current="page">Fight Club</Link>
@@ -14,6 +17,8 @@ const Navbar = () => {
         <Link to={"/"} className="hover:bg-gray-700 text-gray-100 rounded-md px-3 py-2 font-bold">Classes</Link>
         <Link to={"/"} className="hover:bg-gray-700 text-gray-100 rounded-md px-3 py-2 font-bold">Dashboard </Link>
     </>
+
+    const demoProfile = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS10PKiP_JgIwAEgEN0iQjXUcx0HfCFmuB-rRDZQkj-0GxtZgb7hZmX9Ks4HEAAgY0832w&usqp=CAU";
 
     return (
         <div>
@@ -48,8 +53,8 @@ const Navbar = () => {
                                     <Link to={"/login"}><button className="btn btn-sm btn-active font-bold">Login <FaUser /> </button></Link>
 
                                     <button type="button" className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                                        <span className="sr-only">Open user menu</span>
-                                        <img className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                                        {/* <span className="sr-only">Open user menu</span> */}
+                                        <img className="h-8 w-8 rounded-full" src={user?.photoURL ? user.photoURL : demoProfile && demoProfile} alt="" />
                                     </button>
                                 </div>
 
