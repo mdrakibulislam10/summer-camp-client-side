@@ -28,7 +28,10 @@ const Navbar = () => {
         <Link to={"/"} className="hover:bg-gray-700 text-gray-100 rounded-md px-3 py-2 font-bold">Home</Link>
         <Link to={"/"} className="hover:bg-gray-700 text-gray-100 rounded-md px-3 py-2 font-bold">Instructors</Link>
         <Link to={"/"} className="hover:bg-gray-700 text-gray-100 rounded-md px-3 py-2 font-bold">Classes</Link>
-        <Link to={"/"} className="hover:bg-gray-700 text-gray-100 rounded-md px-3 py-2 font-bold">Dashboard </Link>
+        {
+            user &&
+            <Link to={"/dashboard"} className="hover:bg-gray-700 text-gray-100 rounded-md px-3 py-2 font-bold">Dashboard </Link>
+        }
     </>
 
     const demoProfile = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS10PKiP_JgIwAEgEN0iQjXUcx0HfCFmuB-rRDZQkj-0GxtZgb7hZmX9Ks4HEAAgY0832w&usqp=CAU";

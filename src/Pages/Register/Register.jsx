@@ -29,7 +29,7 @@ const Register = () => {
             return;
         }
         setPassDonTMatch("");
-        console.log(data);
+        // console.log(data);
 
         // get photo
         const formData = new FormData();
@@ -41,10 +41,10 @@ const Register = () => {
         })
             .then(res => res.json())
             .then(imgResponse => {
-                console.log(imgResponse);
+                // console.log(imgResponse);
                 if (imgResponse.success) {
                     const userImage = imgResponse.data.display_url;
-                    console.log(userImage);
+                    // console.log(userImage);
 
                     // sign up
                     signUp(email, password)
@@ -53,7 +53,7 @@ const Register = () => {
                                 .then(() => {
                                     swal("Welcome!", "Sign Up Successfully!", "success");
                                     navigate("/", { replace: true });
-                                    console.log(result.user);
+                                    // console.log(result.user);
                                     reset();
                                 })
                                 .catch(err => {

@@ -4,6 +4,9 @@ import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import Home from "../Pages/Home/Home/Home";
 import ErrorPage from "../ErrorPage/ErrorPage";
+import Dashboard from "../Layout/Dashboard";
+import ManageClasses from "../Pages/DashboardPage/ManageClasses/ManageClasses";
+import ManageUsers from "../Pages/DashboardPage/ManageUsers/ManageUsers";
 
 const router = createBrowserRouter([
     {
@@ -22,6 +25,21 @@ const router = createBrowserRouter([
             {
                 path: "register",
                 element: <Register />
+            },
+        ]
+    },
+    {
+        path: "/dashboard",
+        element: <Dashboard />,
+        children: [
+            {
+                // path: "/dashboard/manage-classes"
+                path: "manage-classes",
+                element: <ManageClasses />
+            },
+            {
+                path: "manage-users",
+                element: <ManageUsers />
             },
         ]
     },

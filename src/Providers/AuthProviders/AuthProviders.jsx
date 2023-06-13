@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import app from "../../firebase/firebase.config";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
@@ -33,6 +34,25 @@ const AuthProviders = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
             setLoading(false);
+
+            if (currentUser) {
+                console.log(currentUser);
+                const { displayName, email, photoURL } = currentUser;
+                const saveUser = {
+                    name: displayName,
+                    email,
+                    photo: photoURL,
+                    role: "user", // student;
+                };
+
+                axios.post("http://localhost:5000/users", saveUser)
+                    .then(res => {
+                        const data = res.data;
+                        if (res.data.insertedId) {
+                            console.log(res.data.insertedId);
+                        }
+                    })
+            }
         });
 
         return () => {

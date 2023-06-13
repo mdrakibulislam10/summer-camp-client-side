@@ -21,7 +21,7 @@ const Login = () => {
             .then((result) => {
                 swal("Welcome!", "Sign In Successfully!", "success");
                 navigate("/", { replace: true });
-                console.log(result.user);
+                // console.log(result.user);
             })
             .catch(err => {
                 swal("Something went wrong!", `${err?.message}`, "error");
