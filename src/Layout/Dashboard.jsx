@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaBars, FaBookOpen, FaUsers } from "react-icons/fa";
 import { Link, Outlet } from "react-router-dom";
 import useUserRole from "../hooks/useUserRole";
+import Navbar from "../Pages/Shared/Navbar/Navbar";
 
 const Dashboard = () => {
     // const [userRole] = useUserRole();
@@ -12,6 +13,8 @@ const Dashboard = () => {
 
     return (
         <section>
+            <Navbar />
+
             <div className="bg-gray-200 sm:w-1/4 flex items-center justify-between p-3">
                 <button onClick={() => setIsOpen(!isOpen)} >
                     <FaBars className="text-xl" />

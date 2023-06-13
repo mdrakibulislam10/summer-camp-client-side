@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../../../src/assets/fight-club-logo.png";
 import { useState } from "react";
 import { FaUser } from "react-icons/fa";
@@ -11,12 +11,14 @@ const Navbar = () => {
     const [isHidden, setIsHidden] = useState(true);
     // console.log(user);
     const [userDetails, setUserDetails] = useState(false);
+    const navigate = useNavigate();
 
     const handleLogOut = () => {
         setUserDetails(false);
         logOut()
             .then(() => {
                 swal("Sign Out Successfully!");
+                navigate("/", { replace: true });
             })
             .catch(err => {
                 swal("Something went wrong!", `${err.message}`, "error");

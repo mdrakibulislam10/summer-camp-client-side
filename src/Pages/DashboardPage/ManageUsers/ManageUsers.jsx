@@ -4,6 +4,7 @@ import SectionTItle from "../../../components/SectionTItle/SectionTItle";
 
 const ManageUsers = () => {
 
+    // load add users
     const { data: users = [], refetch } = useQuery({
         queryKey: ["users"],
         queryFn: async () => {
@@ -11,7 +12,18 @@ const ManageUsers = () => {
             return res.data;
         }
     });
-    console.log(users);
+    // console.log(users);
+
+    // update users data
+    const handleRoleUpdate = (_id, userRole) => {
+        axios.patch(`http://localhost:5000/users/${_id}`, { userRole })
+            .then(res => {
+                // console.log(res.data);
+                if (res.data.modifiedCount) {
+                    refetch();
+                }
+            })
+    };
 
     return (
         <div>
@@ -43,10 +55,10 @@ const ManageUsers = () => {
                                     <td>{user?.email}</td>
                                     <td>{user?.role}</td>
                                     <td>
-                                        <button className="btn btn-xs bg-sky-400 text-white hover:text-black">Make Instructor</button>
+                                        <button disabled={user.role === "instructor"} onClick={() => handleRoleUpdate(user._id, "instructor")} className="btn btn-xs bg-sky-400 text-white hover:text-black hover:bg-gray-200">Make Instructor</button>
                                     </td>
                                     <td>
-                                        <button className="btn btn-xs bg-sky-400 text-white hover:text-black">Make Admin</button>
+                                        <button disabled={user.role === "admin"} onClick={() => handleRoleUpdate(user._id, "admin")} className="btn btn-xs bg-sky-400 text-white hover:text-black hover:bg-gray-200">Make Admin</button>
                                     </td>
                                 </tr>
                             )
