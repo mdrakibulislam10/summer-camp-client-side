@@ -13,7 +13,7 @@ const bannerImg = [
 
 const Banner = () => {
     return (
-        <>
+        <div className="">
             <Swiper
                 spaceBetween={30}
                 centeredSlides={true}
@@ -47,7 +47,7 @@ const Banner = () => {
                     }
                 </>
             </Swiper>
-        </>
+        </div>
     );
 };
 

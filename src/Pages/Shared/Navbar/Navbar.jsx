@@ -34,7 +34,7 @@ const Navbar = () => {
     const demoProfile = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS10PKiP_JgIwAEgEN0iQjXUcx0HfCFmuB-rRDZQkj-0GxtZgb7hZmX9Ks4HEAAgY0832w&usqp=CAU";
 
     return (
-        <div>
+        <div className="">
             <nav className="bg-orange-600">
                 <div className="mx-auto max-w-7xl px-2 py-6 sm:px-6 lg:px-8">
                     <div className="relative flex h-16 items-center justify-between">
