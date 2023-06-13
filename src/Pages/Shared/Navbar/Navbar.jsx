@@ -6,9 +6,10 @@ import useAuth from "../../../hooks/useAuth";
 
 
 const Navbar = () => {
-    const { user } = useAuth();
+    const { user, loading } = useAuth();
     const [isHidden, setIsHidden] = useState(true);
-    console.log(user);
+    // console.log(user);
+    const [userDetails, setUserDetails] = useState(false);
 
     const navMenu = <>
         <Link to={"/"} className="text-white uppercase rounded-md px-3 py-2 font-bold text-2xl md:text-3xl" aria-current="page">Fight Club</Link>
@@ -50,20 +51,29 @@ const Navbar = () => {
 
                             <div className="relative ml-3">
                                 <div className="flex gap-2">
-                                    <Link to={"/login"}><button className="btn btn-sm btn-active font-bold">Login <FaUser /> </button></Link>
-
-                                    <button type="button" className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                                        {/* <span className="sr-only">Open user menu</span> */}
-                                        <img className="h-8 w-8 rounded-full" src={user?.photoURL ? user.photoURL : demoProfile && demoProfile} alt="" />
-                                    </button>
+                                    {
+                                        user ?
+                                            <button onClick={() => setUserDetails(!userDetails)} type="button" className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                                                {/* <span className="sr-only">Open user menu</span> */}
+                                                <img className="h-8 w-8 rounded-full" src={user?.photoURL ? user.photoURL : demoProfile && demoProfile} alt="" />
+                                            </button>
+                                            :
+                                            !loading
+                                                ?
+                                                <Link to={"/login"}><button className="btn btn-sm btn-active font-bold">Login <FaUser /> </button></Link>
+                                                :
+                                                <img className="h-8 w-8 rounded-full" src={demoProfile && demoProfile} alt="" />
+                                    }
                                 </div>
 
-                                {/* <div className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex="-1">
-
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-0">Your Profile</a>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-1">Settings</a>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-2">Sign out</a>
-                                </div> */}
+                                {
+                                    user &&
+                                    <div className={`absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ${!userDetails ? "hidden" : "block"}`} role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex="-1">
+                                        <p className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-0">{user?.displayName}</p>
+                                        <p className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-1">{user?.email}</p>
+                                        <button className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-2">Sign out</button>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
