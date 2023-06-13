@@ -30,7 +30,7 @@ const Navbar = () => {
         <Link to={"/"} className="hover:bg-gray-700 text-gray-100 rounded-md px-3 py-2 font-bold">Classes</Link>
         {
             user &&
-            <Link to={"/dashboard"} className="hover:bg-gray-700 text-gray-100 rounded-md px-3 py-2 font-bold">Dashboard </Link>
+            <Link to={"/dashboard/manage-classes"} className="hover:bg-gray-700 text-gray-100 rounded-md px-3 py-2 font-bold">Dashboard </Link>
         }
     </>
 

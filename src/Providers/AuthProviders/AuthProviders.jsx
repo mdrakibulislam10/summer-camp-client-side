@@ -42,7 +42,7 @@ const AuthProviders = ({ children }) => {
                     name: displayName,
                     email,
                     photo: photoURL,
-                    role: "user", // student;
+                    role: "student", // user;
                 };
 
                 axios.post("http://localhost:5000/users", saveUser)
