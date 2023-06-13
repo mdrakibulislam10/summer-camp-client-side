@@ -54,13 +54,14 @@ const Register = () => {
                                     swal("Welcome!", "Sign Up Successfully!", "success");
                                     navigate("/", { replace: true });
                                     console.log(result.user);
+                                    reset();
                                 })
                                 .catch(err => {
-                                    swal("Something went wrong!", `${err.message}`, "error");
+                                    swal("Something went wrong!", `${err?.message}`, "error");
                                 })
                         })
                         .catch(err => {
-                            swal("Something went wrong!", `${err.message}`, "error");
+                            swal("Something went wrong!", `${err?.message}`, "error");
                         })
                 }
             })
