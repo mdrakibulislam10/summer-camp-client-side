@@ -70,7 +70,7 @@ const Login = () => {
                 <p className="text-center text-lg">
                     --- OR ---
                 </p>
-                <SocialLogin />
+                <SocialLogin inOrUp={"In"} />
             </div>
 
             <div className="sm:w-1/2">
