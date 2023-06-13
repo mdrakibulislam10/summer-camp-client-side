@@ -32,10 +32,11 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: <Dashboard />,
         children: [
+            // admin routes;
             {
                 // path: "/dashboard/manage-classes"
                 path: "manage-classes",
-                element: <ManageClasses />
+                element: <ManageClasses /> // TODO: admin verify;
             },
             {
                 path: "manage-users",

@@ -1,9 +1,14 @@
 import { useState } from "react";
-import { FaBars } from "react-icons/fa";
+import { FaBars, FaBookOpen, FaUsers } from "react-icons/fa";
 import { Link, Outlet } from "react-router-dom";
+import useUserRole from "../hooks/useUserRole";
 
 const Dashboard = () => {
+    // const [userRole] = useUserRole();
     const [isOpen, setIsOpen] = useState(true);
+    // console.log(userRole);
+
+    const userRole = "admin";
 
     return (
         <section>
@@ -23,16 +28,21 @@ const Dashboard = () => {
                     <div className="p-4">
                         <h2 className="text-xl font-bold mb-4">Dashboard</h2>
                         <ul className="space-y-3 font-semibold">
-                            <li>
-                                <Link to={"/dashboard/manage-classes"} className=" hover:text-white hover:bg-gray-500 p-2 rounded">
-                                    Manage Classes
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to={"/dashboard/manage-users"} className=" hover:text-white hover:bg-gray-500 p-2 rounded">
-                                    Manage Users
-                                </Link>
-                            </li>
+                            {
+                                userRole === "admin" &&
+                                <>
+                                    <li>
+                                        <Link to={"/dashboard/manage-classes"} className="">
+                                            <span className="flex items-center gap-1 hover:text-white hover:bg-gray-500 p-2 rounded"><FaBookOpen /> Manage Classes</span>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to={"/dashboard/manage-users"} className="">
+                                            <span className="flex items-center gap-1 hover:text-white hover:bg-gray-500 p-2 rounded"><FaUsers /> Manage Users</span>
+                                        </Link>
+                                    </li>
+                                </>
+                            }
                         </ul>
                     </div>
                 </div>
