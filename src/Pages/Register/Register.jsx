@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loginGif from "../../assets/login-gif.gif";
 import SocialLogin from "../../components/SocialLogin/SocialLogin";
 import { useForm } from "react-hook-form";
@@ -15,7 +15,7 @@ const Register = () => {
     const [passHidden, setPassHidden] = useState(true);
     const [confirmPassHidden, setConfirmPassHidden] = useState(true);
     const [passDonTMatch, setPassDonTMatch] = useState("");
-    const [imgURL, setImgURL] = useState(null);
+    const navigate = useNavigate();
 
     const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
 
@@ -44,25 +44,25 @@ const Register = () => {
                 console.log(imgResponse);
                 if (imgResponse.success) {
                     const userImage = imgResponse.data.display_url;
-                    setImgURL(userImage);
-                }
-            })
+                    console.log(userImage);
 
-        // sign up
-        signUp(email, password)
-            .then(result => {
-                userProfileUp(name, imgURL)
-                    .then(() => {
-                        swal("Welcome!", "Sign Up Successfully!", "success");
-                        // swal("Something went wrong!", `${err.message}`, "error");
-                        console.log(result.user);
-                    })
-                    .catch(err => {
-                        swal("Something went wrong!", `${err.message}`, "error");
-                    })
-            })
-            .catch(err => {
-                swal("Something went wrong!", `${err.message}`, "error");
+                    // sign up
+                    signUp(email, password)
+                        .then(result => {
+                            userProfileUp(name, userImage)
+                                .then(() => {
+                                    swal("Welcome!", "Sign Up Successfully!", "success");
+                                    navigate("/", { replace: true });
+                                    console.log(result.user);
+                                })
+                                .catch(err => {
+                                    swal("Something went wrong!", `${err.message}`, "error");
+                                })
+                        })
+                        .catch(err => {
+                            swal("Something went wrong!", `${err.message}`, "error");
+                        })
+                }
             })
     };
 

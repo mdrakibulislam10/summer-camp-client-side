@@ -3,13 +3,24 @@ import logo from "../../../../src/assets/fight-club-logo.png";
 import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import useAuth from "../../../hooks/useAuth";
+import swal from "sweetalert";
 
 
 const Navbar = () => {
-    const { user, loading } = useAuth();
+    const { user, loading, logOut } = useAuth();
     const [isHidden, setIsHidden] = useState(true);
     // console.log(user);
     const [userDetails, setUserDetails] = useState(false);
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => {
+                swal("Sign Out Successfully!");
+            })
+            .catch(err => {
+                swal("Something went wrong!", `${err.message}`, "error");
+            })
+    };
 
     const navMenu = <>
         <Link to={"/"} className="text-white uppercase rounded-md px-3 py-2 font-bold text-2xl md:text-3xl" aria-current="page">Fight Club</Link>
@@ -54,7 +65,6 @@ const Navbar = () => {
                                     {
                                         user ?
                                             <button onClick={() => setUserDetails(!userDetails)} type="button" className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                                                {/* <span className="sr-only">Open user menu</span> */}
                                                 <img className="h-8 w-8 rounded-full" src={user?.photoURL ? user.photoURL : demoProfile && demoProfile} alt="" />
                                             </button>
                                             :
@@ -71,7 +81,7 @@ const Navbar = () => {
                                     <div className={`absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ${!userDetails ? "hidden" : "block"}`} role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex="-1">
                                         <p className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-0">{user?.displayName}</p>
                                         <p className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-1">{user?.email}</p>
-                                        <button className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-2">Sign out</button>
+                                        <button onClick={handleLogOut} className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-2">Sign out</button>
                                     </div>
                                 }
                             </div>
