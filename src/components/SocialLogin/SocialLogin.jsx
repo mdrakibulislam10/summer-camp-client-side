@@ -2,6 +2,7 @@ import { FaGoogle } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SocialLogin = ({ inOrUp }) => {
     const { googleSignIn } = useAuth();
@@ -10,9 +11,21 @@ const SocialLogin = ({ inOrUp }) => {
     const handleGoogleLogin = () => {
         googleSignIn()
             .then((result) => {
-                swal("Welcome!", `Sign ${inOrUp} Successfully!`, "success");
+                const loggedInUser = result.user;
+                const saveUser = {
+                    name: loggedInUser.displayName,
+                    email: loggedInUser.email,
+                    photo: loggedInUser.photoURL,
+                    role: "student", // user;
+                };
+                axios.post("http://localhost:5000/users", saveUser)
+                    .then(res => {
+                        if (res.data.insertedId) {
+                            // console.log(res.data.insertedId);
+                            swal("Welcome!", `Sign ${inOrUp} Successfully!`, "success");
+                        }
+                    })
                 navigate("/", { replace: true });
-                console.log(result.user);
             })
             .catch(err => {
                 swal("Something went wrong!", `${err?.message}`, "error");

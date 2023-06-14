@@ -6,6 +6,7 @@ import SocialLogin from "../../components/SocialLogin/SocialLogin";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import swal from "sweetalert";
+import axios from "axios";
 
 const img_hosting_token = import.meta.env.VITE_IMAGE_UPLOAD_TOKEN;
 // console.log(img_hosting_token);
@@ -43,18 +44,31 @@ const Register = () => {
             .then(imgResponse => {
                 // console.log(imgResponse);
                 if (imgResponse.success) {
-                    const userImage = imgResponse.data.display_url;
+                    const userImage = imgResponse.data?.display_url;
                     // console.log(userImage);
 
                     // sign up
                     signUp(email, password)
                         .then(result => {
-                            userProfileUp(name, userImage)
+                            userProfileUp(data.name, userImage)
                                 .then(() => {
-                                    swal("Welcome!", "Sign Up Successfully!", "success");
-                                    navigate("/", { replace: true });
-                                    // console.log(result.user);
-                                    reset();
+
+                                    const saveUser = {
+                                        name,
+                                        email,
+                                        photo: userImage,
+                                        role: "student", // user;
+                                    };
+                                    axios.post("http://localhost:5000/users", saveUser)
+                                        .then(res => {
+                                            // const data = res.data;
+                                            if (res.data.insertedId) {
+                                                // console.log(res.data.insertedId);
+                                                swal("Welcome!", "Sign Up Successfully!", "success");
+                                                navigate("/", { replace: true });
+                                                reset();
+                                            }
+                                        })
                                 })
                                 .catch(err => {
                                     swal("Something went wrong!", `${err?.message}`, "error");
@@ -76,7 +90,7 @@ const Register = () => {
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
                             Name
                         </label>
-                        <input {...register("name", { required: true })} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Enter Name" />
+                        <input {...register("name", { required: true })} name="name" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Enter Name" />
                         {
                             errors.name?.type === 'required' && <p className="text-red-600 italic">Name is required.</p>
                         }
@@ -85,7 +99,7 @@ const Register = () => {
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
                             Email
                         </label>
-                        <input {...register("email", { required: true })} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Enter Email" />
+                        <input {...register("email", { required: true })} name="email" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Enter Email" />
                         {
                             errors.email?.type === 'required' && <p className="text-red-600 italic">Email is required.</p>
                         }
@@ -101,6 +115,7 @@ const Register = () => {
                                 minLength: 6,
                                 pattern: /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])/,
                             })}
+                                name="password"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type={passHidden ? "password" : "text"} placeholder="Enter Password" />
                             {
                                 passHidden
@@ -124,7 +139,7 @@ const Register = () => {
                             Confirm Password
                         </label>
                         <div className="flex relative">
-                            <input {...register("confirmPassword", { required: true })} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="confirmPassword" type={confirmPassHidden ? "password" : "text"} placeholder="Re-Type Password" />
+                            <input {...register("confirmPassword", { required: true })} name="confirmPassword" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="confirmPassword" type={confirmPassHidden ? "password" : "text"} placeholder="Re-Type Password" />
                             {
                                 confirmPassHidden
                                     ? <FaRegEyeSlash onClick={() => setConfirmPassHidden(!confirmPassHidden)} className="absolute end-1 top-3 text-xl" />
@@ -142,7 +157,7 @@ const Register = () => {
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
                             Upload Image
                         </label>
-                        <input {...register("photo", { required: true })} className="mb-2 block w-full text-sm text-gray-900 border border-gray-300 rounded cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-200" aria-describedby="file_input_help" id="file_input" type="file"></input>
+                        <input {...register("photo", { required: true })} name="photo" className="mb-2 block w-full text-sm text-gray-900 border border-gray-300 rounded cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-200" aria-describedby="file_input_help" id="file_input" type="file"></input>
 
                         {
                             errors.photo?.type === 'required' && <p className="text-red-600 italic">Photo is required.</p>

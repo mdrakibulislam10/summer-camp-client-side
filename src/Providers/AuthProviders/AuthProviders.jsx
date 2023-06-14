@@ -29,30 +29,20 @@ const AuthProviders = ({ children }) => {
         return signInWithPopup(auth, googleProvider);
     };
 
+    // update user profile
+    const userProfileUp = (name, photo) => {
+        // setLoading(true);
+        return updateProfile(auth.currentUser, {
+            displayName: name,
+            photoURL: photo,
+        });
+    };
+
     // get current user data
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
             setLoading(false);
-
-            if (currentUser) {
-                // console.log(currentUser);
-                const { displayName, email, photoURL } = currentUser;
-                const saveUser = {
-                    name: displayName,
-                    email,
-                    photo: photoURL,
-                    role: "student", // user;
-                };
-
-                axios.post("http://localhost:5000/users", saveUser)
-                    .then(res => {
-                        const data = res.data;
-                        if (res.data.insertedId) {
-                            // console.log(res.data.insertedId);
-                        }
-                    })
-            }
         });
 
         return () => {
@@ -60,16 +50,10 @@ const AuthProviders = ({ children }) => {
         };
     }, []);
 
-    // update user profile
-    const userProfileUp = (name, photo) => {
-        return updateProfile(auth?.currentUser, {
-            displayName: name,
-            photoURL: photo,
-        });
-    };
 
     // sign out
     const logOut = () => {
+        // setLoading(true);
         return signOut(auth);
     };
 
