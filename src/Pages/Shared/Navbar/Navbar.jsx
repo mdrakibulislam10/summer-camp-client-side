@@ -8,7 +8,7 @@ import useUserRole from "../../../hooks/useUserRole";
 
 
 const Navbar = () => {
-    const { user, loading, logOut } = useAuth();
+    const { user, logOut } = useAuth();
     const [userRole] = useUserRole();
     const [isHidden, setIsHidden] = useState(true);
     // console.log(user);
@@ -84,11 +84,7 @@ const Navbar = () => {
                                                 <img className="h-8 w-8 rounded-full" src={user?.photoURL ? user.photoURL : demoProfile && demoProfile} alt="" />
                                             </button>
                                             :
-                                            !loading
-                                                ?
-                                                <Link to={"/login"}><button className="btn btn-sm btn-active font-bold">Login <FaUser /> </button></Link>
-                                                :
-                                                <img className="h-8 w-8 rounded-full" src={demoProfile && demoProfile} alt="" />
+                                            <Link to={"/login"}><button className="btn btn-sm btn-active font-bold">Login <FaUser /> </button></Link>
                                     }
                                 </div>
 

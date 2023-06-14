@@ -1,7 +1,7 @@
 import swal from "sweetalert";
 import useAuth from "../../hooks/useAuth";
 import useUserRole from "../../hooks/useUserRole";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -79,7 +79,7 @@ const ClassesCard = ({ martialClass, buttonConditional, handleDeleteClass }) => 
                             {
                                 !buttonConditional &&
                                 <div className="">
-                                    <button className="btn btn-md font-bold bg-green-400">Pay</button>
+                                    <Link to={"/dashboard/payment"} state={price}><button className="btn btn-md font-bold bg-green-400">Pay</button></Link>
 
                                     <button onClick={() => handleDeleteClass(_id)} className="btn btn-md font-bold ms-1 bg-red-400">Delete</button>
                                 </div>

@@ -46,7 +46,7 @@ const MySelectedClasses = () => {
     return (
         <section>
             <SectionTItle
-                titleText={"All Classes"}
+                titleText={"My Selected Classes"}
             />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mx-1 md:mx-10 lg:mx-16">
