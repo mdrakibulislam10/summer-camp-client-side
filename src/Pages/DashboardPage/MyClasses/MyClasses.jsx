@@ -13,7 +13,7 @@ const MyClasses = () => {
             return res.data;
         },
     });
-    console.log(MyClasses);
+    // console.log(MyClasses);
 
     return (
         <section>
@@ -29,7 +29,7 @@ const MyClasses = () => {
                             <tr>
                                 <th>#</th>
                                 <th>Image</th>
-                                <th>Class</th>
+                                <th>Class Name</th>
                                 <th>Enrolled</th>
                                 <th>Status</th>
                                 <th>Feedback</th>
@@ -47,7 +47,7 @@ const MyClasses = () => {
                                         <td>{user?.status}</td>
                                         <td className="italic">{user?.feedback ? user.feedback : "no feedback"}</td>
                                         <td>
-                                            <button disabled={user.role === "admin"} className="btn btn-xs bg-sky-400 text-white hover:text-black hover:bg-gray-200">Update</button>
+                                            <button className="btn btn-xs bg-sky-400 text-white hover:text-black hover:bg-gray-200">Update</button>
                                         </td>
                                     </tr>
                                 )
@@ -55,7 +55,8 @@ const MyClasses = () => {
                         </tbody>
 
                     </table>
-                </div>            </div>
+                </div>
+            </div>
         </section>
     );
 };

@@ -66,7 +66,7 @@ const Dashboard = () => {
                 </div>
 
                 {/* Main content */}
-                <div className="flex-1">
+                <div className="flex-1 overflow-auto">
                     <div className="p-4">
 
                         <Outlet />
