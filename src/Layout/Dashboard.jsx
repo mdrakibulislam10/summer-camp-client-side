@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaAddressBook, FaBars, FaBookMedical, FaBookOpen, FaUsers } from "react-icons/fa";
+import { FaAddressBook, FaBars, FaBookMedical, FaBookOpen, FaCalendarCheck, FaCalendarPlus, FaUsers } from "react-icons/fa";
 import { Link, Outlet } from "react-router-dom";
 import useUserRole from "../hooks/useUserRole";
 // import Navbar from "../Pages/Shared/Navbar/Navbar";
@@ -57,6 +57,21 @@ const Dashboard = () => {
                                     <li>
                                         <Link to={"/dashboard/my-classes"} className="">
                                             <span className="flex items-center gap-1 hover:text-white hover:bg-gray-500 p-2 rounded"><FaAddressBook /> My Classes</span>
+                                        </Link>
+                                    </li>
+                                </>
+                            }
+                            {
+                                userRole === "student" &&
+                                <>
+                                    <li>
+                                        <Link to={"/dashboard/my-selected-classes"} className="">
+                                            <span className="flex items-center gap-1 hover:text-white hover:bg-gray-500 p-2 rounded"><FaCalendarPlus /> My Selected Classes</span>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to={"/dashboard/my-enrolled-classes"} className="">
+                                            <span className="flex items-center gap-1 hover:text-white hover:bg-gray-500 p-2 rounded"><FaCalendarCheck /> My Enrolled Classes</span>
                                         </Link>
                                     </li>
                                 </>

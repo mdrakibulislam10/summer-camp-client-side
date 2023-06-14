@@ -9,6 +9,9 @@ import ManageClasses from "../Pages/DashboardPage/ManageClasses/ManageClasses";
 import ManageUsers from "../Pages/DashboardPage/ManageUsers/ManageUsers";
 import AddClass from "../Pages/DashboardPage/AddClass/AddClass";
 import MyClasses from "../Pages/DashboardPage/MyClasses/MyClasses";
+import MySelectedClasses from "../Pages/DashboardPage/MySelectedClasses/MySelectedClasses";
+import MyEnrolledClasses from "../Pages/DashboardPage/myEnrolledClasses/myEnrolledClasses";
+import ClassesPage from "../Pages/ClassesPage/ClassesPage";
 
 const router = createBrowserRouter([
     {
@@ -28,6 +31,10 @@ const router = createBrowserRouter([
                 path: "register",
                 element: <Register />
             },
+            {
+                path: "classes",
+                element: <ClassesPage />
+            }
         ]
     },
     {
@@ -53,6 +60,15 @@ const router = createBrowserRouter([
                 path: "my-classes",
                 element: <MyClasses />
             },
+            // student routes
+            {
+                path: "my-selected-classes",
+                element: <MySelectedClasses /> // TODO: stu verify;
+            },
+            {
+                path: "my-enrolled-classes",
+                element: <MyEnrolledClasses />
+            }
         ]
     },
 ]);
