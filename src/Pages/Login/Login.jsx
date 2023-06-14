@@ -19,6 +19,7 @@ const Login = () => {
 
         signIn(email, password)
             .then((result) => {
+                reset();
                 swal("Welcome!", "Sign In Successfully!", "success");
                 navigate("/", { replace: true });
                 // console.log(result.user);
