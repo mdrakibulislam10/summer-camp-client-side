@@ -2,17 +2,19 @@ import swal from "sweetalert";
 import useAuth from "../../hooks/useAuth";
 import useUserRole from "../../hooks/useUserRole";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 const ClassesCard = ({ martialClass }) => {
     const { user } = useAuth();
     const [userRole] = useUserRole();
     const navigate = useNavigate();
 
-    const { imgURL, martialClassName, price, instructorName, availableSeats } = martialClass;
+    const { imgURL, martialClassName, price, instructorName, availableSeats, _id } = martialClass;
     // console.log(martialClass);
 
     const handleUserCheck = () => {
-        !user &&
+        if (!user) {
             swal({
                 text: "Please log in before selecting the course",
                 buttons: {
@@ -24,7 +26,24 @@ const ClassesCard = ({ martialClass }) => {
                         navigate("/login", { replace: true });
                     }
                 });
-        return;
+            return;
+        }
+
+        const selectedClass = {
+            classId: _id,
+            imgURL,
+            martialClassName,
+            price,
+            instructorName,
+            availableSeats,
+            email: user?.email,
+        };
+        axios.post("http://localhost:5000/selectedClasses", selectedClass)
+            .then(res => {
+                if (res.data.insertedId) {
+                    toast("Class selected successfully");
+                }
+            })
     };
 
     return (
@@ -54,6 +73,7 @@ const ClassesCard = ({ martialClass }) => {
                                 <button onClick={handleUserCheck} disabled={(parseInt(availableSeats) === 0) || (userRole === "admin") || (userRole === "instructor")} className="btn btn-md font-bold bg-gray-300">Select</button>
                             </div>
                         </div>
+                        <ToastContainer />
                     </div>
                 </div>
 
