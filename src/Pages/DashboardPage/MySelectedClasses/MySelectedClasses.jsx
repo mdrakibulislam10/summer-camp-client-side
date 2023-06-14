@@ -3,6 +3,7 @@ import useAuth from "../../../hooks/useAuth";
 import axios from "axios";
 import SectionTItle from "../../../components/SectionTItle/SectionTItle";
 import ClassesCard from "../../ClassesPage/ClassesCard";
+import swal from "sweetalert";
 
 const MySelectedClasses = () => {
     const { user } = useAuth();
@@ -16,6 +17,32 @@ const MySelectedClasses = () => {
     });
     // console.log(selectedClasses);
 
+    const handleDeleteClass = (_id) => {
+        // console.log(_id);
+
+        swal({
+            title: "Are you sure?",
+            text: "Do you want to delete the class?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    axios.delete(`http://localhost:5000/selectedClass/${_id}`)
+                        .then(res => {
+                            // console.log(res.data);
+                            if (res.data.deletedCount) {
+                                refetch();
+                                swal("Class has been deleted!", {
+                                    icon: "success",
+                                })
+                            }
+                        });
+                }
+            });
+    };
+
     return (
         <section>
             <SectionTItle
@@ -28,7 +55,7 @@ const MySelectedClasses = () => {
                         key={martialClass._id}
                         martialClass={martialClass}
                         buttonConditional={false}
-                        refetch={refetch}
+                        handleDeleteClass={handleDeleteClass}
                     />
                 ))}
             </div>

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 
-const ClassesCard = ({ martialClass, buttonConditional, refetch }) => {
+const ClassesCard = ({ martialClass, buttonConditional, handleDeleteClass }) => {
     const { user } = useAuth();
     const [userRole] = useUserRole();
     const navigate = useNavigate();
@@ -13,7 +13,8 @@ const ClassesCard = ({ martialClass, buttonConditional, refetch }) => {
     const { imgURL, martialClassName, price, instructorName, availableSeats, _id } = martialClass;
     // console.log(martialClass);
 
-    const handleUserCheck = () => {
+    // post selected class
+    const handleSelectClass = () => {
         if (!user) {
             swal({
                 text: "Please log in before selecting the course",
@@ -72,7 +73,7 @@ const ClassesCard = ({ martialClass, buttonConditional, refetch }) => {
                             {
                                 buttonConditional &&
                                 <div className="">
-                                    <button onClick={handleUserCheck} disabled={(parseInt(availableSeats) === 0) || (userRole === "admin") || (userRole === "instructor")} className="btn btn-md font-bold bg-gray-300">Select</button>
+                                    <button onClick={handleSelectClass} disabled={(parseInt(availableSeats) === 0) || (userRole === "admin") || (userRole === "instructor")} className="btn btn-md font-bold bg-gray-300">Select</button>
                                 </div>
                             }
                             {
@@ -80,7 +81,7 @@ const ClassesCard = ({ martialClass, buttonConditional, refetch }) => {
                                 <div className="">
                                     <button className="btn btn-md font-bold bg-green-400">Pay</button>
 
-                                    <button className="btn btn-md font-bold ms-1 bg-red-400">Delete</button>
+                                    <button onClick={() => handleDeleteClass(_id)} className="btn btn-md font-bold ms-1 bg-red-400">Delete</button>
                                 </div>
                             }
                         </div>
