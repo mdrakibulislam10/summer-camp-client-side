@@ -24,6 +24,8 @@ const ClassesPage = () => {
                     <ClassesCard
                         key={martialClass._id}
                         martialClass={martialClass}
+                        buttonConditional={true}
+                        refetch={refetch}
                     />
                 ))}
             </div>
