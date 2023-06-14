@@ -17,8 +17,9 @@ const ManageClasses = () => {
     const handleStatusUp = (_id, setStatus) => {
         axios.patch(`http://localhost:5000/classes/${_id}`, { setStatus })
             .then(res => {
-                console.log(res.data);
-                refetch();
+                if (res.data.modifiedCount) {
+                    refetch();
+                }
             })
     };
 
@@ -50,28 +51,30 @@ const ManageClasses = () => {
                             </thead>
                             <tbody>
                                 {
-                                    classes.map((user, i) =>
-                                        <tr key={user._id}>
+                                    classes.map((martialClass, i) =>
+                                        <tr key={martialClass._id}>
                                             <th>{i + 1}</th>
-                                            <td><img className="w-7 h-7 rounded-full" src={user?.imgURL} alt="" /></td>
-                                            <td>{user?.martialClassName}</td>
-                                            <td>{user?.instructorName}</td>
-                                            <td>{user?.email}</td>
-                                            <td>{user?.availableSeats}</td>
-                                            <td>{user?.price}</td>
-                                            <td>{user?.status}</td>
+                                            <td><img className="w-7 h-7 rounded-full" src={martialClass?.imgURL} alt="" /></td>
+                                            <td>{martialClass?.martialClassName}</td>
+                                            <td>{martialClass?.instructorName}</td>
+                                            <td>{martialClass?.email}</td>
+                                            <td>{martialClass?.availableSeats}</td>
+                                            <td>{martialClass?.price}</td>
+                                            <td>{martialClass?.status}</td>
                                             <td>
-                                                <button disabled={user.status === "approved" || "denied"}
-                                                    onClick={() => handleStatusUp(user._id, "approved")}
+                                                <button disabled={martialClass.status === "approved" || martialClass.status === "denied"}
+
+                                                    onClick={() => handleStatusUp(martialClass._id, "approved")}
                                                     className="btn btn-xs bg-green-400 text-white hover:text-black hover:bg-gray-200">Approve</button>
                                             </td>
                                             <td>
-                                                <button disabled={user.status === "approved" || "denied"}
-                                                    onClick={() => handleStatusUp(user._id, "denied")}
+                                                <button disabled={martialClass.status === "approved" || martialClass.status === "denied"}
+
+                                                    onClick={() => handleStatusUp(martialClass._id, "denied")}
                                                     className="btn btn-xs bg-red-400 text-white hover:text-black hover:bg-gray-200">Deny</button>
                                             </td>
                                             <td>
-                                                <button disabled={user.role === "admin"} className="btn btn-xs bg-orange-500 text-white hover:text-black hover:bg-gray-200">Send Feedback</button>
+                                                <button disabled={martialClass.role === "admin"} className="btn btn-xs bg-orange-500 text-white hover:text-black hover:bg-gray-200">Send Feedback</button>
                                             </td>
                                         </tr>
                                     )

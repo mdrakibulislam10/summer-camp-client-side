@@ -38,14 +38,14 @@ const MyClasses = () => {
                         </thead>
                         <tbody>
                             {
-                                MyClasses.map((user, i) =>
-                                    <tr key={user._id}>
+                                MyClasses.map((martialClass, i) =>
+                                    <tr key={martialClass._id}>
                                         <th>{i + 1}</th>
-                                        <td><img className="w-7 h-7 rounded-full" src={user?.imgURL} alt="" /></td>
-                                        <td>{user?.martialClassName}</td>
-                                        <td>{user?.enrolled}</td>
-                                        <td>{user?.status}</td>
-                                        <td className="italic">{user?.feedback ? user.feedback : "no feedback"}</td>
+                                        <td><img className="w-7 h-7 rounded-full" src={martialClass?.imgURL} alt="" /></td>
+                                        <td>{martialClass?.martialClassName}</td>
+                                        <td>{martialClass?.enrolled}</td>
+                                        <td>{martialClass?.status}</td>
+                                        <td className="italic">{martialClass?.feedback ? martialClass.feedback : "no feedback"}</td>
                                         <td>
                                             <button className="btn btn-xs bg-sky-400 text-white hover:text-black hover:bg-gray-200">Update</button>
                                         </td>
