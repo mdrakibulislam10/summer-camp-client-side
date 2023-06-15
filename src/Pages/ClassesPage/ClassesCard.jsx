@@ -10,8 +10,8 @@ const ClassesCard = ({ martialClass, buttonConditional, handleDeleteClass }) => 
     const [userRole] = useUserRole();
     const navigate = useNavigate();
 
-    const { imgURL, martialClassName, price, instructorName, availableSeats, _id } = martialClass;
-    // console.log(martialClass);
+    const { imgURL, martialClassName, price, instructorName, availableSeats, _id, enrolled } = martialClass;
+    console.log(martialClass);
 
     // post selected class
     const handleSelectClass = () => {
@@ -38,6 +38,7 @@ const ClassesCard = ({ martialClass, buttonConditional, handleDeleteClass }) => 
             instructorName,
             availableSeats,
             email: user?.email,
+            enrolled,
         };
         axios.post("http://localhost:5000/selectedClasses", selectedClass)
             .then(res => {

@@ -6,7 +6,7 @@ import swal from "sweetalert";
 import axios from "axios";
 
 const CheckoutForm = ({ price, selectClassForPay }) => {
-    const { _id, availableSeats, classId, imgURL, instructorName, martialClassName, } = selectClassForPay;
+    const { _id, availableSeats, classId, imgURL, instructorName, martialClassName, enrolled } = selectClassForPay;
     console.log(selectClassForPay);
 
     const { user } = useAuth();
@@ -73,13 +73,13 @@ const CheckoutForm = ({ price, selectClassForPay }) => {
         }
 
         console.log(paymentIntent);
-
+        console.log(selectClassForPay.enrolled);
 
         if (paymentIntent.status === "succeeded") {
             const transactionId = paymentIntent.id;
             setTransactionId(transactionId);
 
-            const newSeats = parseFloat(selectClassForPay.availableSeats) - 1;
+            const newSeats = parseFloat(availableSeats) - 1;
             // console.log(newSeats);
 
             // Available seats for the particular Class will be reduced by 1 - classes collection
@@ -98,9 +98,16 @@ const CheckoutForm = ({ price, selectClassForPay }) => {
                     }
                 })
 
-            // enrolled class +1
+            // enrolled class increasing by 1
+            const newEnrolled = parseFloat(enrolled) + 1;
+            console.log(newEnrolled);
 
-
+            axiosSecure.patch(`/class/selected/enrolled/${classId}`, { newEnrolled })
+                .then(res => {
+                    if (res.data.modifiedCount) {
+                        console.log("updated enrolled");
+                    }
+                })
 
             // for post in class payment collection
             const paymentClass = {
@@ -113,6 +120,8 @@ const CheckoutForm = ({ price, selectClassForPay }) => {
                 imgURL,
                 instructorName,
                 martialClassName,
+                enrolled,
+                status: "Service Pending",
             };
 
             // post payment class collection
