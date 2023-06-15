@@ -50,7 +50,7 @@ const AuthProviders = ({ children }) => {
                 })
                     .then(res => {
                         const accessToken = res.data.token;
-                        console.log(accessToken);
+                        // console.log(accessToken);
                         localStorage.setItem("access-token", accessToken);
                         setLoading(false);
                     })

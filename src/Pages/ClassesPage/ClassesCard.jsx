@@ -11,7 +11,7 @@ const ClassesCard = ({ martialClass, buttonConditional, handleDeleteClass }) => 
     const navigate = useNavigate();
 
     const { imgURL, martialClassName, price, instructorName, availableSeats, _id, enrolled } = martialClass;
-    console.log(martialClass);
+    // console.log(martialClass);
 
     // post selected class
     const handleSelectClass = () => {
@@ -72,18 +72,22 @@ const ClassesCard = ({ martialClass, buttonConditional, handleDeleteClass }) => 
                                 Available: <span className="text-teal-600 text-md font-semibold">{availableSeats}</span>
                             </div>
                             {
-                                buttonConditional &&
+                                buttonConditional === "classesPage" &&
                                 <div className="">
                                     <button onClick={handleSelectClass} disabled={(parseInt(availableSeats) === 0) || (userRole === "admin") || (userRole === "instructor")} className="btn btn-md font-bold bg-gray-300">Select</button>
                                 </div>
                             }
                             {
-                                !buttonConditional &&
+                                buttonConditional === "mySelectedPage" &&
                                 <div className="">
                                     <Link to={"/dashboard/payment"} state={martialClass}><button className="btn btn-md font-bold bg-green-400">Pay</button></Link>
 
                                     <button onClick={() => handleDeleteClass(_id)} className="btn btn-md font-bold ms-1 bg-red-400">Delete</button>
                                 </div>
+                            }
+                            {
+                                buttonConditional === "enrolledPage" &&
+                                <button className="btn btn-md font-bold ms-1 bg-gray-200">Continue</button>
                             }
                         </div>
                         <ToastContainer />

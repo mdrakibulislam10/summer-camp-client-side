@@ -120,7 +120,7 @@ const CheckoutForm = ({ price, selectClassForPay }) => {
                 imgURL,
                 instructorName,
                 martialClassName,
-                enrolled,
+                enrolled: newEnrolled,
                 status: "Service Pending",
             };
 

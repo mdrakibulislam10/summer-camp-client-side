@@ -54,7 +54,7 @@ const MySelectedClasses = () => {
                     <ClassesCard
                         key={martialClass._id}
                         martialClass={martialClass}
-                        buttonConditional={false}
+                        buttonConditional={"mySelectedPage"}
                         handleDeleteClass={handleDeleteClass}
                     />
                 ))}

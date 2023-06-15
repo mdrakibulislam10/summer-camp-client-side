@@ -24,7 +24,7 @@ const ClassesPage = () => {
                     <ClassesCard
                         key={martialClass._id}
                         martialClass={martialClass}
-                        buttonConditional={true}
+                        buttonConditional={"classesPage"}
                     />
                 ))}
             </div>
