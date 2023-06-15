@@ -30,7 +30,7 @@ const Navbar = () => {
     const navMenu = <>
         <Link to={"/"} className="text-white uppercase rounded-md px-3 py-2 font-bold text-2xl md:text-3xl" aria-current="page">Fight Club</Link>
         <Link to={"/"} className="hover:bg-gray-700 text-gray-100 rounded-md px-3 py-2 font-bold">Home</Link>
-        <Link to={"/"} className="hover:bg-gray-700 text-gray-100 rounded-md px-3 py-2 font-bold">Instructors</Link>
+        <Link to={"/instructors"} className="hover:bg-gray-700 text-gray-100 rounded-md px-3 py-2 font-bold">Instructors</Link>
         <Link to={"/classes"} className="hover:bg-gray-700 text-gray-100 rounded-md px-3 py-2 font-bold">Classes</Link>
         {
             user && userRole === "admin" &&

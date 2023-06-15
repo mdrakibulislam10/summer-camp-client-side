@@ -2,7 +2,7 @@ import SectionTItle from "../../../components/SectionTItle/SectionTItle";
 
 const AboutUs = () => {
     return (
-        <section>
+        <section className="mb-12">
             <SectionTItle
                 titleText={"About Us"}
             />
@@ -11,7 +11,7 @@ const AboutUs = () => {
                     <img className="border-sky-500 border-4 rounded-sm" src="https://i.ibb.co/4fqJCxH/taekwondo-students-karate-classes-martial-arts.jpg" alt="" />
                 </div>
 
-                <div className="bg-purple-200 py-10 px-6 rounded-sm shadow-lg">
+                <div className="bg-purple-200 py-10 px-6 rounded-sm shadow-lg h-full">
                     <h2 className="text-2xl md:text-4xl font-bold mb-3">BEST MARTIAL ARTS SUMMER CAMP IN THIS TIME</h2>
                     <p className="text-lg font-semibold">Discover the Power Within, Develop Skills, and Create Lasting Memories at our Martial Arts Summer Camp</p>
 
