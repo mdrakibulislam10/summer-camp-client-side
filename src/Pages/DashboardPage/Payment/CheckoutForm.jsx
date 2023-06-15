@@ -3,8 +3,12 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import swal from "sweetalert";
+import axios from "axios";
 
-const CheckoutForm = ({ price }) => {
+const CheckoutForm = ({ price, selectClassForPay }) => {
+    const { _id, availableSeats, classId, imgURL, instructorName, martialClassName, } = selectClassForPay;
+    console.log(selectClassForPay);
+
     const { user } = useAuth();
     const stripe = useStripe();
     const elements = useElements();
@@ -13,6 +17,7 @@ const CheckoutForm = ({ price }) => {
     const [cardErr, setCardErr] = useState("");
     const [clientSecret, setClientSecret] = useState("");
     const [transactionId, setTransactionId] = useState("");
+
 
     useEffect(() => {
         axiosSecure.post("/create-payment-intent", { price })
@@ -66,24 +71,69 @@ const CheckoutForm = ({ price }) => {
         if (confirmError) {
             console.log(confirmError);
         }
+
         console.log(paymentIntent);
+
+
         if (paymentIntent.status === "succeeded") {
             const transactionId = paymentIntent.id;
             setTransactionId(transactionId);
 
-            swal("payment successful");
+            const newSeats = parseFloat(selectClassForPay.availableSeats) - 1;
+            // console.log(newSeats);
+
+            // Available seats for the particular Class will be reduced by 1 - classes collection
+            axiosSecure.patch(`/class/seats/${classId}`, { newSeats })
+                .then(res => {
+                    if (res.data.modifiedCount) {
+                        console.log("updated");
+                    }
+                })
+
+            // Available seats for the particular Class will be reduced by 1 - classes collection
+            axiosSecure.patch(`/class/selected/seats/${classId}`, { newSeats })
+                .then(res => {
+                    if (res.data.modifiedCount) {
+                        console.log("updated selected");
+                    }
+                })
+
+            // 
+
+            // for post in class payment collection
+            const paymentClass = {
+                classId,
+                email: user?.email,
+                transactionId,
+                price,
+                date: new Date(),
+                availableSeats: newSeats,
+                imgURL,
+                instructorName,
+                martialClassName,
+            };
+
+            // post payment class collection
+            axiosSecure.post("/paymentsClass", paymentClass)
+                .then(res => {
+                    if (res.data.insertedId) {
+                        console.log("product added", res.data.insertedId);
+                        swal("payment successful");
+                    }
+                })
+
         }
 
     };
 
     return (
-        <div>
+        <div className="border p-3 rounded border-sky-500 md:w-3/4 mx-auto">
             <form onSubmit={handleSubmit}>
-                <CardElement
+                <CardElement className="border border-sky-500 rounded p-2"
                     options={{
                         style: {
                             base: {
-                                fontSize: '16px',
+                                fontSize: '18px',
                                 color: '#424770',
                                 '::placeholder': {
                                     color: '#aab7c4',
@@ -95,7 +145,7 @@ const CheckoutForm = ({ price }) => {
                         },
                     }}
                 />
-                <button type="submit" disabled={!stripe}>
+                <button className="btn btn-md bg-sky-500 text-white mt-4" type="submit" disabled={!stripe}>
                     Pay
                 </button>
             </form>

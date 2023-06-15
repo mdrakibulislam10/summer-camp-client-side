@@ -79,7 +79,7 @@ const ClassesCard = ({ martialClass, buttonConditional, handleDeleteClass }) => 
                             {
                                 !buttonConditional &&
                                 <div className="">
-                                    <Link to={"/dashboard/payment"} state={price}><button className="btn btn-md font-bold bg-green-400">Pay</button></Link>
+                                    <Link to={"/dashboard/payment"} state={martialClass}><button className="btn btn-md font-bold bg-green-400">Pay</button></Link>
 
                                     <button onClick={() => handleDeleteClass(_id)} className="btn btn-md font-bold ms-1 bg-red-400">Delete</button>
                                 </div>

@@ -8,8 +8,9 @@ const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GETWAY_PK);
 
 const Payment = () => {
     const location = useLocation();
-    const price = parseFloat(location.state);
-    // console.log(price);
+    const selectClassForPay = location.state;
+    // console.log(selectClassForPay.price);
+    const price = parseFloat(selectClassForPay.price);
 
     return (
         <section>
@@ -21,6 +22,7 @@ const Payment = () => {
                 <Elements stripe={stripePromise}>
                     <CheckoutForm
                         price={price}
+                        selectClassForPay={selectClassForPay}
                     />
                 </Elements>
             </div>
