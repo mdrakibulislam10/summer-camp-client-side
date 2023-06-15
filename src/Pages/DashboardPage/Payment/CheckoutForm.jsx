@@ -98,7 +98,9 @@ const CheckoutForm = ({ price, selectClassForPay }) => {
                     }
                 })
 
-            // 
+            // enrolled class +1
+
+
 
             // for post in class payment collection
             const paymentClass = {
@@ -122,6 +124,13 @@ const CheckoutForm = ({ price, selectClassForPay }) => {
                     }
                 })
 
+            // remove class from selected class
+            axiosSecure.delete(`/class/selected/remove/${_id}`)
+                .then(res => {
+                    if (res.data.deletedCount) {
+                        console.log("deleted");
+                    }
+                })
         }
 
     };
