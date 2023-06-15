@@ -4,6 +4,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation, Keyboard } from "swiper";
 import "./Banner.css";
+import { Slide } from "react-awesome-reveal";
 
 const bannerImg = [
     "https://i.ibb.co/bm6TbY6/photo-1555597673-b21d5c935865.jpg",
@@ -38,8 +39,10 @@ const Banner = () => {
                                 <div className="relative">
                                     <img className="w-full h-56 sm:h-72 custom-height" src={img} alt="" />
                                     <div className="absolute top-1/4 left-8 sm:left-12 lg:top-1/3 lg:left-16">
-                                        <p className="lg:text-8xl text-3xl sm:text-5xl text-sky-600 font-semibold">Unleash Your <br /> Inner Warrior</p>
-                                        <p className="text-orange-600 sm:text-xl lg:text-3xl mt-4">At our Martial Arts Summer Camp!</p>
+                                        <Slide>
+                                            <p className="lg:text-8xl text-3xl sm:text-5xl text-sky-600 font-semibold">Unleash Your <br /> Inner Warrior</p>
+                                            <p className="text-orange-600 sm:text-xl lg:text-3xl mt-4">At our Martial Arts Summer Camp!</p>
+                                        </Slide>
                                     </div>
                                 </div>
                             </SwiperSlide>

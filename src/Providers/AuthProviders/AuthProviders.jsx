@@ -29,9 +29,13 @@ const AuthProviders = ({ children }) => {
         return signInWithPopup(auth, googleProvider);
     };
 
+    // sign out
+    const logOut = () => {
+        return signOut(auth);
+    };
+
     // update user profile
     const userProfileUp = (name, photo) => {
-        // setLoading(true);
         return updateProfile(auth.currentUser, {
             displayName: name,
             photoURL: photo,
@@ -58,19 +62,12 @@ const AuthProviders = ({ children }) => {
             else {
                 localStorage.removeItem("access-token");
             }
-        });
+        })
 
         return () => {
             unsubscribe();
-        };
+        }
     }, []);
-
-
-    // sign out
-    const logOut = () => {
-        // setLoading(true);
-        return signOut(auth);
-    };
 
     const authInfo = {
         user,
@@ -78,8 +75,8 @@ const AuthProviders = ({ children }) => {
         signUp,
         signIn,
         googleSignIn,
-        userProfileUp,
         logOut,
+        userProfileUp,
     };
 
     return (
