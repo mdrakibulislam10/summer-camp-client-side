@@ -14,7 +14,7 @@ const PaymentHistory = () => {
             return res.data;
         },
     });
-    console.log(paymentHistory);
+    // console.log(paymentHistory);
 
     return (
         <section>
