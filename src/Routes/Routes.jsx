@@ -16,6 +16,7 @@ import Payment from "../Pages/DashboardPage/Payment/Payment";
 import PaymentHistory from "../Pages/DashboardPage/PaymentHistory/PaymentHistory";
 import InstructorsPage from "../Pages/InstructorsPage/InstructorsPage";
 import StudentsPrivateRoute from "./StudentsPrivateRoute";
+import InstructorsPrivateRoutes from "./InstructorsPrivateRoutes";
 
 const router = createBrowserRouter([
     {
@@ -63,11 +64,11 @@ const router = createBrowserRouter([
             // instructor routes
             {
                 path: "add-class",
-                element: <AddClass /> // TODO: inst verify;
+                element: <InstructorsPrivateRoutes> <AddClass /> </InstructorsPrivateRoutes>
             },
             {
                 path: "my-classes",
-                element: <MyClasses />
+                element: <InstructorsPrivateRoutes> <MyClasses /> </InstructorsPrivateRoutes>
             },
             // student routes
             {
