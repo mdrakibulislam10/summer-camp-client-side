@@ -30,6 +30,7 @@ const PaymentHistory = () => {
                             <tr>
                                 <th>#</th>
                                 <th>Class name</th>
+                                <th>Price</th>
                                 <th>User email</th>
                                 <th>Transaction Id</th>
                                 <th>Date & Time</th>
@@ -41,6 +42,7 @@ const PaymentHistory = () => {
                                     <tr key={martialClass._id}>
                                         <th>{i + 1}</th>
                                         <td>{martialClass?.martialClassName}</td>
+                                        <td>{martialClass?.price}</td>
                                         <td>{martialClass?.email}</td>
                                         <td>{martialClass?.transactionId}</td>
                                         <td>{martialClass?.date.split("T").join(" -- ").split("Z").shift()}</td>

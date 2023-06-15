@@ -10,7 +10,7 @@ const Payment = () => {
     const location = useLocation();
     const selectClassForPay = location.state;
     // console.log(selectClassForPay.price);
-    const price = parseFloat(selectClassForPay.price);
+    const price = parseFloat(selectClassForPay?.price);
 
     return (
         <section>

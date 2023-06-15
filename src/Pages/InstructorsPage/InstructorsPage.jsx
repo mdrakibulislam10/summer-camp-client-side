@@ -4,14 +4,14 @@ import axios from "axios";
 import InstructorsCard from "./InstructorsCard/InstructorsCard";
 
 const InstructorsPage = () => {
-    const { data: instructor = [] } = useQuery({
-        queryKey: ["instructor"],
+    const { data: instructors = [] } = useQuery({
+        queryKey: ["instructors"],
         queryFn: async () => {
-            const res = await axios.get("http://localhost:5000/instructor");
+            const res = await axios.get("http://localhost:5000/instructors");
             return res.data;
         }
     });
-    console.log(instructor);
+    // console.log(instructors);
 
     return (
         <section className="mb-12">
@@ -21,7 +21,7 @@ const InstructorsPage = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 mx-1 md:mx-6 lg:mx-12">
                 {
-                    instructor.map(item =>
+                    instructors.map(item =>
                         <InstructorsCard
                             key={item._id}
                             item={item}

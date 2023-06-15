@@ -1,4 +1,4 @@
-import { Navigate, createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
@@ -15,6 +15,7 @@ import ClassesPage from "../Pages/ClassesPage/ClassesPage";
 import Payment from "../Pages/DashboardPage/Payment/Payment";
 import PaymentHistory from "../Pages/DashboardPage/PaymentHistory/PaymentHistory";
 import InstructorsPage from "../Pages/InstructorsPage/InstructorsPage";
+import StudentsPrivateRoute from "./StudentsPrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -38,7 +39,6 @@ const router = createBrowserRouter([
                 path: "classes",
                 element: <ClassesPage />
             },
-            // instructors page
             {
                 path: "instructors",
                 element: <InstructorsPage />
@@ -48,6 +48,7 @@ const router = createBrowserRouter([
     {
         path: "/dashboard",
         element: <Dashboard />,
+        errorElement: <ErrorPage />,
         children: [
             // admin routes
             {
@@ -71,19 +72,19 @@ const router = createBrowserRouter([
             // student routes
             {
                 path: "my-selected-classes",
-                element: <MySelectedClasses /> // TODO: stu verify;
+                element: <StudentsPrivateRoute> <MySelectedClasses /> </StudentsPrivateRoute>
             },
             {
                 path: "my-enrolled-classes",
-                element: <MyEnrolledClasses />
+                element: <StudentsPrivateRoute>  <MyEnrolledClasses /> </StudentsPrivateRoute>
             },
             {
                 path: "payment",
-                element: <Payment />,
+                element: <Payment />
             },
             {
                 path: "payment-history",
-                element: <PaymentHistory />
+                element: <StudentsPrivateRoute> <PaymentHistory /> </StudentsPrivateRoute>
             }
         ]
     },

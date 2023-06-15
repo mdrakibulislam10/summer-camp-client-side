@@ -2,7 +2,8 @@ import { useState } from "react";
 import { FaAddressBook, FaBars, FaBookMedical, FaBookOpen, FaCalendarCheck, FaCalendarPlus, FaMoneyCheckAlt, FaUsers } from "react-icons/fa";
 import { Link, Outlet } from "react-router-dom";
 import useUserRole from "../hooks/useUserRole";
-// import Navbar from "../Pages/Shared/Navbar/Navbar";
+import Navbar from "../Pages/Shared/Navbar/Navbar";
+import Footer from "../Pages/Shared/Footer/Footer";
 
 const Dashboard = () => {
     const [userRole] = useUserRole();
@@ -13,18 +14,18 @@ const Dashboard = () => {
 
     return (
         <section>
-            {/* <Navbar /> */}
+            <Navbar />
 
             <div className="bg-gray-200 sm:w-1/4 flex items-center justify-between p-3">
                 <button onClick={() => setIsOpen(!isOpen)} >
                     <FaBars className="text-xl" />
                 </button>
 
-                <p>
+                {/* <p>
                     <Link to={"/"} className="text-xl font-bold text-sky-600 uppercase">Fight Club</Link>
-                </p>
+                </p> */}
             </div>
-            <div className="flex">
+            <div className="flex mb-12">
                 {/* Sidebar */}
                 <div className={`sm:w-1/4 bg-gray-200 h-screen ${isOpen ? "block" : "hidden"}`}>
                     {/* Sidebar menu */}
@@ -94,6 +95,8 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
+
+            <Footer />
         </section>
     );
 };
