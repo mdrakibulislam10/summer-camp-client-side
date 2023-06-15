@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import swal from "sweetalert";
-import axios from "axios";
+// import axios from "axios";
 
 const CheckoutForm = ({ price, selectClassForPay }) => {
     const { _id, availableSeats, classId, imgURL, instructorName, martialClassName, enrolled } = selectClassForPay;
-    console.log(selectClassForPay);
+    // console.log(selectClassForPay);
 
     const { user } = useAuth();
     const stripe = useStripe();
@@ -18,11 +18,11 @@ const CheckoutForm = ({ price, selectClassForPay }) => {
     const [clientSecret, setClientSecret] = useState("");
     const [transactionId, setTransactionId] = useState("");
 
-
+    // create payment intent
     useEffect(() => {
         axiosSecure.post("/create-payment-intent", { price })
             .then(res => {
-                console.log(res.data.clientSecret);
+                // console.log(res.data.clientSecret);
                 setClientSecret(res.data.clientSecret);
             })
     }, [price, axiosSecure]);
@@ -35,7 +35,7 @@ const CheckoutForm = ({ price, selectClassForPay }) => {
         }
 
         const card = elements.getElement(CardElement);
-        console.log(card);
+        // console.log(card);
 
         if (card == null) {
             return;
@@ -51,7 +51,7 @@ const CheckoutForm = ({ price, selectClassForPay }) => {
             setCardErr(error.message);
         }
         else {
-            console.log('[PaymentMethod]', paymentMethod);
+            // console.log('[PaymentMethod]', paymentMethod);
             setCardErr("");
         }
 
@@ -69,11 +69,11 @@ const CheckoutForm = ({ price, selectClassForPay }) => {
         )
 
         if (confirmError) {
-            console.log(confirmError);
+            // console.log(confirmError);
         }
 
-        console.log(paymentIntent);
-        console.log(selectClassForPay.enrolled);
+        // console.log(paymentIntent);
+        // console.log(selectClassForPay.enrolled);
 
         if (paymentIntent.status === "succeeded") {
             const transactionId = paymentIntent.id;
@@ -86,7 +86,7 @@ const CheckoutForm = ({ price, selectClassForPay }) => {
             axiosSecure.patch(`/class/seats/${classId}`, { newSeats })
                 .then(res => {
                     if (res.data.modifiedCount) {
-                        console.log("updated");
+                        // console.log("updated");
                     }
                 })
 
@@ -94,18 +94,18 @@ const CheckoutForm = ({ price, selectClassForPay }) => {
             axiosSecure.patch(`/class/selected/seats/${classId}`, { newSeats })
                 .then(res => {
                     if (res.data.modifiedCount) {
-                        console.log("updated selected");
+                        // console.log("updated selected");
                     }
                 })
 
             // enrolled class increasing by 1
             const newEnrolled = parseFloat(enrolled) + 1;
-            console.log(newEnrolled);
+            // console.log(newEnrolled);
 
             axiosSecure.patch(`/class/selected/enrolled/${classId}`, { newEnrolled })
                 .then(res => {
                     if (res.data.modifiedCount) {
-                        console.log("updated enrolled");
+                        // console.log("updated enrolled");
                     }
                 })
 
@@ -128,8 +128,8 @@ const CheckoutForm = ({ price, selectClassForPay }) => {
             axiosSecure.post("/paymentsClass", paymentClass)
                 .then(res => {
                     if (res.data.insertedId) {
-                        console.log("product added", res.data.insertedId);
-                        swal("payment successful");
+                        // console.log("product added", res.data.insertedId);
+                        swal("Payment successful. Your transactionId is:", transactionId);
                     }
                 })
 
@@ -137,7 +137,7 @@ const CheckoutForm = ({ price, selectClassForPay }) => {
             axiosSecure.delete(`/class/selected/remove/${_id}`)
                 .then(res => {
                     if (res.data.deletedCount) {
-                        console.log("deleted");
+                        // console.log("deleted");
                     }
                 })
         }
