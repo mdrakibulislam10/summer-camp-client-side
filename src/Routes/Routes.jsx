@@ -17,6 +17,7 @@ import PaymentHistory from "../Pages/DashboardPage/PaymentHistory/PaymentHistory
 import InstructorsPage from "../Pages/InstructorsPage/InstructorsPage";
 import StudentsPrivateRoute from "./StudentsPrivateRoute";
 import InstructorsPrivateRoutes from "./InstructorsPrivateRoutes";
+import AdminPrivateRoutes from "./AdminPrivateRoutes";
 
 const router = createBrowserRouter([
     {
@@ -55,11 +56,11 @@ const router = createBrowserRouter([
             {
                 // path: "/dashboard/manage-classes"
                 path: "manage-classes",
-                element: <ManageClasses /> // TODO: admin verify;
+                element: <AdminPrivateRoutes> <ManageClasses /> </AdminPrivateRoutes>
             },
             {
                 path: "manage-users",
-                element: <ManageUsers />
+                element: <AdminPrivateRoutes> <ManageUsers /> </AdminPrivateRoutes>
             },
             // instructor routes
             {
