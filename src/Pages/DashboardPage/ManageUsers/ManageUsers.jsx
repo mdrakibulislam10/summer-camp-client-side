@@ -1,14 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+// import axios from "axios";
 import SectionTItle from "../../../components/SectionTItle/SectionTItle";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAuth from "../../../hooks/useAuth";
 
 const ManageUsers = () => {
+    const { loading, user } = useAuth();
+    const [axiosSecure] = useAxiosSecure();
 
     // load add users
     const { data: users = [], refetch } = useQuery({
         queryKey: ["users"],
+        enabled: !!localStorage.getItem("access-token") && !!user?.email,
         queryFn: async () => {
-            const res = await axios.get("http://localhost:5000/users");
+            const res = await axiosSecure.get("/users");
             return res.data;
         }
     });
@@ -16,7 +21,7 @@ const ManageUsers = () => {
 
     // update users data
     const handleRoleUpdate = (_id, userRole) => {
-        axios.patch(`http://localhost:5000/users/${_id}`, { userRole })
+        axiosSecure.patch(`/users/${_id}`, { userRole })
             .then(res => {
                 // console.log(res.data);
                 if (res.data.modifiedCount) {

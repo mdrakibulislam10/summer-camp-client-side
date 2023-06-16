@@ -10,11 +10,14 @@ import useUserRole from "../../../hooks/useUserRole";
 const Navbar = () => {
     const { user, logOut } = useAuth();
     // console.log(user);
-    const [userRole] = useUserRole();
+    const [userRole, refetch, isUserLoading] = useUserRole();
     const [isHidden, setIsHidden] = useState(true);
     const [userDetails, setUserDetails] = useState(false);
     const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "light");
     const navigate = useNavigate();
+
+    // 1st time dashboard route not showing problem solved
+    refetch();
 
     useEffect(() => {
         localStorage.setItem("theme", theme);
@@ -49,15 +52,15 @@ const Navbar = () => {
         <Link to={"/instructors"} className="hover:bg-gray-700 text-gray-100 rounded-md px-3 py-2 font-bold">Instructors</Link>
         <Link to={"/classes"} className="hover:bg-gray-700 text-gray-100 rounded-md px-3 py-2 font-bold">Classes</Link>
         {
-            user && userRole === "admin" &&
+            !isUserLoading && user && userRole === "admin" &&
             <Link to={"/dashboard/manage-classes"} className="hover:bg-gray-700 text-gray-100 rounded-md px-3 py-2 font-bold">Dashboard </Link>
         }
         {
-            user && userRole === "instructor" &&
+            !isUserLoading && user && userRole === "instructor" &&
             <Link to={"/dashboard/add-class"} className="hover:bg-gray-700 text-gray-100 rounded-md px-3 py-2 font-bold">Dashboard </Link>
         }
         {
-            user && userRole === "student" &&
+            !isUserLoading && user && userRole === "student" &&
             <Link to={"/dashboard/my-selected-classes"} className="hover:bg-gray-700 text-gray-100 rounded-md px-3 py-2 font-bold">Dashboard </Link>
         }
     </>

@@ -1,15 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import SectionTItle from "../../../components/SectionTItle/SectionTItle";
 import useAuth from "../../../hooks/useAuth";
-import axios from "axios";
+// import axios from "axios";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const MyClasses = () => {
-    const { user } = useAuth();
+    const { user, loading } = useAuth();
+    const [axiosSecure] = useAxiosSecure();
 
-    const { data: MyClasses = [], refetch } = useQuery({
+    const { data: MyClasses = [] } = useQuery({
         queryKey: ["classes", user?.email],
+        enabled: !!localStorage.getItem("access-token") && !!user?.email,
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/classes?email=${user?.email}`);
+            const res = await axiosSecure.get(`/classes?email=${user?.email}`);
             return res.data;
         },
     });
@@ -24,7 +27,6 @@ const MyClasses = () => {
             <div>
                 <div className="overflow-x-auto">
                     <table className="table">
-                        {/* head */}
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -33,7 +35,7 @@ const MyClasses = () => {
                                 <th>Enrolled</th>
                                 <th>Status</th>
                                 <th>Feedback</th>
-                                <th>Make Admin</th>
+                                <th>Update</th>
                             </tr>
                         </thead>
                         <tbody>

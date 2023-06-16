@@ -175,7 +175,7 @@ const Register = () => {
                 <p className="text-center text-lg">
                     --- OR ---
                 </p>
-                <SocialLogin inOrUp={"Up"} />
+                <SocialLogin />
             </div>
 
             <div className="sm:w-1/2 md:order-1">

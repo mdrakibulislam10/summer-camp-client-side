@@ -4,7 +4,7 @@ import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const SocialLogin = ({ inOrUp }) => {
+const SocialLogin = () => {
     const { googleSignIn } = useAuth();
     const navigate = useNavigate();
 
@@ -22,9 +22,10 @@ const SocialLogin = ({ inOrUp }) => {
                     .then(res => {
                         if (res.data.insertedId) {
                             // console.log(res.data.insertedId);
-                            swal("Welcome!", `Sign ${inOrUp} Successfully!`, "success");
+                            swal("Welcome!", `Sign Up Successfully!`, "success");
                         }
                     })
+                swal("Welcome!", `Sign In Successfully!`, "success");
                 navigate("/", { replace: true });
             })
             .catch(err => {

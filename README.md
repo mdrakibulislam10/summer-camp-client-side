@@ -14,6 +14,7 @@
 * You can login by clicking the login button, if you are a new user then you can register by going to the registrar page. The link to the registration page is on the login page.
 * Clicking on Dashboard will take you to the Student Dashboard page if you're a student, the Instructor Dashboard page if you're an instructor, and the Admin Dashboard page if you're an administrator.
 * You can select any class in the classes page and confirm purchase the class by payment in the my enrolled page.
+* You can toggle light mode and dark mode.
 
 ## > Used packages / technology name:
 * react-stripe-js: for payment.
@@ -26,4 +27,3 @@
 * swiper: for carousel / slider.
 * react awesome reveal: for animation.
 
-light dark , site url add,  npm install styled-components

@@ -2,13 +2,15 @@ import swal from "sweetalert";
 import useAuth from "../../hooks/useAuth";
 import useUserRole from "../../hooks/useUserRole";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const ClassesCard = ({ martialClass, buttonConditional, handleDeleteClass }) => {
     const { user } = useAuth();
     const [userRole] = useUserRole();
     const navigate = useNavigate();
+    const [axiosSecure] = useAxiosSecure();
 
     const { imgURL, martialClassName, price, instructorName, availableSeats, _id, enrolled } = martialClass;
     // console.log(martialClass);
@@ -40,7 +42,7 @@ const ClassesCard = ({ martialClass, buttonConditional, handleDeleteClass }) => 
             email: user?.email,
             enrolled,
         };
-        axios.post("http://localhost:5000/selectedClasses", selectedClass)
+        axiosSecure.post("/selectedClasses", selectedClass)
             .then(res => {
                 if (res.data.insertedId) {
                     toast("Class selected successfully");

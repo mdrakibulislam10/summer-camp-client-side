@@ -4,7 +4,7 @@ import SectionTItle from "../../components/SectionTItle/SectionTItle";
 import ClassesCard from "./ClassesCard";
 
 const ClassesPage = () => {
-    const { data: approvedClasses = [], refetch } = useQuery({
+    const { data: approvedClasses = [] } = useQuery({
         queryKey: ["approvedClasses"],
         queryFn: async () => {
             const res = await axios.get("http://localhost:5000/classes/approved")

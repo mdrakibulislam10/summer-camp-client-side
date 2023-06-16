@@ -1,19 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+// import axios from "axios";
 import SectionTItle from "../../../components/SectionTItle/SectionTItle";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAuth from "../../../hooks/useAuth";
 
 // load all classes
 const ManageClasses = () => {
+    const { loading, user } = useAuth();
     const [feedbackText, setFeedbackText] = useState("");
     const [selectedClassId, setSelectedClassId] = useState(null);
+    const [axiosSecure] = useAxiosSecure();
 
     const { data: classes = [], refetch } = useQuery({
         queryKey: ["classes"],
+        enabled: !!localStorage.getItem("access-token") && !!user?.email,
         queryFn: async () => {
-            const res = await axios.get("http://localhost:5000/allClasses");
+            const res = await axiosSecure.get("/allClasses");
             return res.data;
         },
     });
@@ -21,7 +26,7 @@ const ManageClasses = () => {
 
     // update status
     const handleStatusUp = (_id, setStatus) => {
-        axios.patch(`http://localhost:5000/classes/${_id}`, { setStatus })
+        axiosSecure.patch(`/classes/${_id}`, { setStatus })
             .then(res => {
                 if (res.data.modifiedCount) {
                     refetch();
@@ -37,7 +42,7 @@ const ManageClasses = () => {
 
         // console.log(feedbackText);
 
-        axios.patch(`http://localhost:5000/classes/feedback/${selectedClassId}`, { feedbackText })
+        axiosSecure.patch(`/classes/feedback/${selectedClassId}`, { feedbackText })
             .then(res => {
                 if (res.data.modifiedCount) {
                     console.log(res.data.modifiedCount);
@@ -49,7 +54,7 @@ const ManageClasses = () => {
     };
 
     return (
-        <div>
+        <>
             <section>
                 <SectionTItle
                     titleText={"Manage Classes"}
@@ -101,37 +106,37 @@ const ManageClasses = () => {
                                                     setSelectedClassId(martialClass._id);
                                                     window.my_modal_5.showModal();
                                                 }}
-                                                    className="btn btn-xs bg-orange-500 text-white hover:text-black hover:bg-gray-200">Send Feedback</button>
+                                                    className="btn btn-xs bg-orange-500 text-white hover:text-black hover:bg-gray-200">Feedback</button>
                                             </td>
                                         </tr>
                                     )
                                 }
-                                <ToastContainer />
                             </tbody>
 
                         </table>
-
-                        {/* Modal */}
-                        <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-                            <form method="dialog" className="modal-box">
-                                <h3 className="font-bold text-lg">Write feedback</h3>
-                                <div className="form-control">
-                                    <textarea
-                                        value={feedbackText}
-                                        onChange={(e) => setFeedbackText(e.target.value)}
-                                        className="textarea textarea-bordered h-24 mt-5" placeholder="write here...">
-                                    </textarea>
-                                </div>
-                                <div className="modal-action">
-                                    <button className="btn" onClick={() => setFeedbackText("")}>Close</button>
-                                    <button className="btn" onClick={sendFeedback}>Send</button>
-                                </div>
-                            </form>
-                        </dialog>
                     </div>
                 </div>
+                <ToastContainer />
+
+                {/* Modal */}
+                <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+                    <form method="dialog" className="modal-box">
+                        <h3 className="font-bold text-lg">Write feedback</h3>
+                        <div className="form-control">
+                            <textarea
+                                value={feedbackText}
+                                onChange={(e) => setFeedbackText(e.target.value)}
+                                className="textarea textarea-bordered h-24 mt-5" placeholder="write here...">
+                            </textarea>
+                        </div>
+                        <div className="modal-action">
+                            <button className="btn" onClick={() => setFeedbackText("")}>Close</button>
+                            <button className="btn" onClick={sendFeedback}>Send</button>
+                        </div>
+                    </form>
+                </dialog>
             </section>
-        </div>
+        </>
     );
 };
 

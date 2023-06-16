@@ -4,10 +4,12 @@ import { Link, Outlet } from "react-router-dom";
 import useUserRole from "../hooks/useUserRole";
 import Navbar from "../Pages/Shared/Navbar/Navbar";
 import Footer from "../Pages/Shared/Footer/Footer";
+import useAuth from "../hooks/useAuth";
 
 const Dashboard = () => {
-    const [userRole] = useUserRole();
+    const [userRole, , isUserLoading] = useUserRole();
     const [isOpen, setIsOpen] = useState(true);
+    const { user } = useAuth();
     // console.log(userRole);
 
     // const userRole = "admin";
@@ -33,7 +35,7 @@ const Dashboard = () => {
                         <h2 className="text-xl font-bold mb-4">Dashboard</h2>
                         <ul className="space-y-3 font-semibold">
                             {
-                                userRole === "admin" &&
+                                !isUserLoading && user && userRole === "admin" &&
                                 <>
                                     <li>
                                         <Link to={"/dashboard/manage-classes"} className="">
@@ -48,7 +50,7 @@ const Dashboard = () => {
                                 </>
                             }
                             {
-                                userRole === "instructor" &&
+                                !isUserLoading && user && userRole === "instructor" &&
                                 <>
                                     <li>
                                         <Link to={"/dashboard/add-class"} className="">
@@ -63,7 +65,7 @@ const Dashboard = () => {
                                 </>
                             }
                             {
-                                userRole === "student" &&
+                                !isUserLoading && user && userRole === "student" &&
                                 <>
                                     <li>
                                         <Link to={"/dashboard/my-selected-classes"} className="">

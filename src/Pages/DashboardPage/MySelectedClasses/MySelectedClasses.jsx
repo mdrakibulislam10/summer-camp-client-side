@@ -1,17 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
-import axios from "axios";
+// import axios from "axios";
 import SectionTItle from "../../../components/SectionTItle/SectionTItle";
 import ClassesCard from "../../ClassesPage/ClassesCard";
 import swal from "sweetalert";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const MySelectedClasses = () => {
-    const { user } = useAuth();
+    const { user, loading } = useAuth();
+    const [axiosSecure] = useAxiosSecure();
 
     const { data: selectedClasses = [], refetch } = useQuery({
         queryKey: ["selectedClasses", user?.email],
+        enabled: !!localStorage.getItem("access-token") && !!user?.email,
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/selectedClasses?email=${user?.email}`);
+            const res = await axiosSecure.get(`/selectedClasses?email=${user?.email}`);
             return res.data;
         },
     });
@@ -19,7 +22,6 @@ const MySelectedClasses = () => {
 
     const handleDeleteClass = (_id) => {
         // console.log(_id);
-
         swal({
             title: "Are you sure?",
             text: "Do you want to delete the class?",
@@ -29,7 +31,7 @@ const MySelectedClasses = () => {
         })
             .then((willDelete) => {
                 if (willDelete) {
-                    axios.delete(`http://localhost:5000/selectedClass/${_id}`)
+                    axiosSecure.delete(`/selectedClass/${_id}`)
                         .then(res => {
                             // console.log(res.data);
                             if (res.data.deletedCount) {

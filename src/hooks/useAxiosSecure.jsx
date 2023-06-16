@@ -13,26 +13,35 @@ const useAxiosSecure = () => {
 
     useEffect(() => {
         const token = localStorage.getItem('access-token');
-        axiosSecure.interceptors.request.use((config) => {
+
+        const requestInterceptor = axiosSecure.interceptors.request.use((config) => {
             if (token) {
                 config.headers.Authorization = `Bearer ${token}`;
             }
             return config;
         });
 
-        axiosSecure.interceptors.response.use(
-            (response) => response,
+        const responseInterceptor = axiosSecure.interceptors.response.use(
+            (response) => {
+                return response;
+            },
             async (error) => {
                 if (error.response && (error.response.status === 401 || error.response.status === 403)) {
                     await logOut();
-                    navigate("/login");
+                    navigate('/login');
                 }
                 return Promise.reject(error);
             }
         );
+
+        return () => {
+            // Cleanup the interceptors when the component unmounts
+            axiosSecure.interceptors.request.eject(requestInterceptor);
+            axiosSecure.interceptors.response.eject(responseInterceptor);
+        };
     }, [logOut, navigate]);
 
-    return [axiosSecure];
+    return [axiosSecure]; // Return the axios instance
 };
 
 export default useAxiosSecure;

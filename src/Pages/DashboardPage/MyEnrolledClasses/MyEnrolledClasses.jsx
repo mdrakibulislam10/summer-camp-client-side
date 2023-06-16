@@ -5,11 +5,12 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import ClassesCard from "../../ClassesPage/ClassesCard";
 
 const MyEnrolledClasses = () => {
-    const { user } = useAuth();
+    const { user, loading } = useAuth();
     const [axiosSecure] = useAxiosSecure();
 
     const { data: enrolledClasses = [] } = useQuery({
         queryKey: ["selectedClasses", user?.email],
+        enabled: !!localStorage.getItem("access-token") && !!user?.email,
         queryFn: async () => {
             const res = await axiosSecure.get(`/enrolledClasses?email=${user?.email}`);
             return res.data;

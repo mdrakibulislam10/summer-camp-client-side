@@ -1,14 +1,17 @@
 import { useForm } from "react-hook-form";
 import SectionTItle from "../../../components/SectionTItle/SectionTItle";
 import useAuth from "../../../hooks/useAuth";
-import axios from "axios";
+// import axios from "axios";
 import swal from "sweetalert";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const img_hosting_token = import.meta.env.VITE_IMAGE_UPLOAD_TOKEN;
 
 const AddClass = () => {
     const { user } = useAuth();
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const [axiosSecure] = useAxiosSecure();
+
 
     const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
 
@@ -43,7 +46,7 @@ const AddClass = () => {
                     };
 
                     // post class
-                    axios.post("http://localhost:5000/classes", martialClass)
+                    axiosSecure.post("/classes", martialClass)
                         .then(res => {
                             // console.log(res.data.insertedId);
                             if (res.data.insertedId) {

@@ -18,6 +18,7 @@ import InstructorsPage from "../Pages/InstructorsPage/InstructorsPage";
 import StudentsPrivateRoute from "./StudentsPrivateRoute";
 import InstructorsPrivateRoutes from "./InstructorsPrivateRoutes";
 import AdminPrivateRoutes from "./AdminPrivateRoutes";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -49,7 +50,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/dashboard",
-        element: <Dashboard />,
+        element: <PrivateRoute> <Dashboard /> </PrivateRoute>,
         errorElement: <ErrorPage />,
         children: [
             // admin routes
@@ -82,7 +83,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "payment",
-                element: <Payment />
+                element: <PrivateRoute> <Payment /> </PrivateRoute>
             },
             {
                 path: "payment-history",
