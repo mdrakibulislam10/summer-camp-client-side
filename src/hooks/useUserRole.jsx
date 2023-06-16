@@ -11,7 +11,7 @@ const useUserRole = () => {
         enabled: !!localStorage.getItem("access-token") && !!user?.email,
         queryFn: async () => {
             // When we use axiosSecure we will be taken to the login page for the first time
-            const res = await axios.get(`http://localhost:5000/userRole?email=${email}`);
+            const res = await axios.get(`https://summer-camp-client-side-d54ce.web.app/userRole?email=${email}`);
 
             return res.data;
         }

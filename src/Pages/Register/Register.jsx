@@ -59,7 +59,7 @@ const Register = () => {
                                         photo: userImage,
                                         role: "student", // user;
                                     };
-                                    axios.post("http://localhost:5000/users", saveUser)
+                                    axios.post("https://summer-camp-client-side-d54ce.web.app/users", saveUser)
                                         .then(res => {
                                             // const data = res.data;
                                             if (res.data.insertedId) {

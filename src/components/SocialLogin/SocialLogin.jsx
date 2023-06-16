@@ -18,7 +18,7 @@ const SocialLogin = () => {
                     photo: loggedInUser.photoURL,
                     role: "student", // user;
                 };
-                axios.post("http://localhost:5000/users", saveUser)
+                axios.post("https://summer-camp-client-side-d54ce.web.app/users", saveUser)
                     .then(res => {
                         if (res.data.insertedId) {
                             // console.log(res.data.insertedId);

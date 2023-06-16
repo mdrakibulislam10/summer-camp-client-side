@@ -49,7 +49,7 @@ const AuthProviders = ({ children }) => {
 
             // get and set token
             if (currentUser) {
-                axios.post("http://localhost:5000/jwt", {
+                axios.post("https://summer-camp-client-side-d54ce.web.app/jwt", {
                     email: currentUser.email,
                 })
                     .then(res => {

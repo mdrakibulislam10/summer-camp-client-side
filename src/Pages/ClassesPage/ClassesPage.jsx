@@ -7,7 +7,7 @@ const ClassesPage = () => {
     const { data: approvedClasses = [] } = useQuery({
         queryKey: ["approvedClasses"],
         queryFn: async () => {
-            const res = await axios.get("http://localhost:5000/classes/approved")
+            const res = await axios.get("https://summer-camp-client-side-d54ce.web.app/classes/approved")
             return res.data;
         },
     });
