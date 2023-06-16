@@ -18,7 +18,7 @@ const SocialLogin = () => {
                     photo: loggedInUser.photoURL,
                     role: "student", // user;
                 };
-                axios.post("https://summer-camp-client-side-d54ce.web.app/users", saveUser)
+                axios.post("https://summer-camp-server-side-mu.vercel.app/users", saveUser)
                     .then(res => {
                         if (res.data.insertedId) {
                             // console.log(res.data.insertedId);

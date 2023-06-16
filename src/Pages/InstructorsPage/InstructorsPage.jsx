@@ -7,7 +7,7 @@ const InstructorsPage = () => {
     const { data: instructors = [] } = useQuery({
         queryKey: ["instructors"],
         queryFn: async () => {
-            const res = await axios.get("https://summer-camp-client-side-d54ce.web.app/instructors");
+            const res = await axios.get("https://summer-camp-server-side-mu.vercel.app/instructors");
             return res.data;
         }
     });

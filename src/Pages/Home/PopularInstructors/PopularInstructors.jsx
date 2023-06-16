@@ -7,7 +7,7 @@ const PopularInstructors = () => {
     const { data: popularInstructor = [] } = useQuery({
         queryKey: ["popularInstructor"],
         queryFn: async () => {
-            const res = await axios.get("https://summer-camp-client-side-d54ce.web.app/popularInstructor?limit=6");
+            const res = await axios.get("https://summer-camp-server-side-mu.vercel.app/popularInstructor?limit=6");
             return res.data;
         }
     });

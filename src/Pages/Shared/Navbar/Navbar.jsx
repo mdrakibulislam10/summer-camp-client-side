@@ -83,7 +83,7 @@ const Navbar = () => {
 
                         <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                             <div className="flex flex-shrink-0 items-center">
-                                <Link to={"/"}><img className="block h-12 sm:h-16 bg-white w-auto rounded-full" src={logo} alt="Your Company" /></Link>
+                                <Link to={"/"}><img className="block h-12 sm:h-16 bg-white w-auto rounded-full absolute left-16 top-2 sm:static" src={logo} alt="Your Company" /></Link>
                             </div>
                             <div className="hidden sm:ml-6 sm:block">
                                 <div className="flex space-x-4 items-center">
