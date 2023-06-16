@@ -25,3 +25,5 @@
 * sweetalert: for showing fancy alert pop up.
 * swiper: for carousel / slider.
 * react awesome reveal: for animation.
+
+light dark , site url add,  npm install styled-components
