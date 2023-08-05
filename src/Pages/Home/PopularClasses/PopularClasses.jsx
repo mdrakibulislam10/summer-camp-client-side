@@ -21,7 +21,7 @@ const PopularClasses = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 mx-1">
                 {
                     popularClasses.map(item =>
-                        <div key={item._id}>
+                        <div key={item._id} data-aos="fade-up" data-aos-duration="1000">
                             <div className="flex flex-col justify-center items-center max-w-sm mx-auto my-8">
                                 <div
                                     style={{ backgroundImage: `url(${item.imgURL})` }}
