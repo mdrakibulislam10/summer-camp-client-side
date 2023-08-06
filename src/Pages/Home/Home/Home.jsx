@@ -1,5 +1,6 @@
 import AboutUs from "../AboutUs/AboutUs";
 import Banner from "../Banner/Banner";
+import BenefitsSection from "../BenefitsSection/BenefitsSection";
 import ExtraInfoCard from "../ExtraInfoCard/ExtraInfoCard";
 import PhotoBanner from "../PhotoBanner/PhotoBanner";
 import PopularClasses from "../PopularClasses/PopularClasses";
@@ -11,6 +12,8 @@ const Home = () => {
             <Banner />
 
             <PhotoBanner />
+
+            <BenefitsSection />
 
             <PopularClasses />
 
