@@ -6,6 +6,7 @@ import ExtraInfoCard from "../ExtraInfoCard/ExtraInfoCard";
 import PhotoBanner from "../PhotoBanner/PhotoBanner";
 import PopularClasses from "../PopularClasses/PopularClasses";
 import PopularInstructors from "../PopularInstructors/PopularInstructors";
+import SingleImgBanner from "../SingleImgBanner/SingleImgBanner";
 
 const Home = () => {
     return (
@@ -14,6 +15,7 @@ const Home = () => {
 
             <PhotoBanner />
 
+            <SingleImgBanner />
 
             <PopularClasses />
 
