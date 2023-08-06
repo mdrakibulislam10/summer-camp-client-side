@@ -31,8 +31,8 @@ const BenefitsSection = () => {
                 titleText={"Benefits of Martial Arts"}
             />
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 mx-1 md:mx-20 items-center">
-                <div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 mx-1 md:mx-20 items-center gap-5">
+                <div className="order-2 lg:order-1">
                     <h1 className="text-3xl md:text-4xl font-semibold md:w-3/4 text-center mb-5">Top 5 Reasons to Learn Martial Arts</h1>
 
                     <div>
@@ -49,7 +49,7 @@ const BenefitsSection = () => {
                     </div>
                 </div>
 
-                <div>
+                <div className="order-1 lg:order-2">
                     <img src={benefitImg} alt="" />
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import AboutUs from "../AboutUs/AboutUs";
 import Banner from "../Banner/Banner";
 import BenefitsSection from "../BenefitsSection/BenefitsSection";
+import ClientsReview from "../ClientsReview/ClientsReview";
 import ExtraInfoCard from "../ExtraInfoCard/ExtraInfoCard";
 import PhotoBanner from "../PhotoBanner/PhotoBanner";
 import PopularClasses from "../PopularClasses/PopularClasses";
@@ -13,13 +14,16 @@ const Home = () => {
 
             <PhotoBanner />
 
-            <BenefitsSection />
 
             <PopularClasses />
 
             <PopularInstructors />
 
+            <BenefitsSection />
+
             <AboutUs />
+
+            <ClientsReview />
 
             <ExtraInfoCard />
         </div>
