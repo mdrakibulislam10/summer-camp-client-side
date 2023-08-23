@@ -38,7 +38,7 @@ const Login = () => {
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
                             Email
                         </label>
-                        <input {...register("email", { required: true })} className="shadow mb-3 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Enter Email" />
+                        <input {...register("email", { required: true })} className="shadow mb-3 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" defaultValue={"admin@gmail.com"} id="email" type="email" placeholder="Enter Email" />
                         {
                             errors.email?.type === 'required' && <p className="text-red-600 italic">Email is required.</p>
                         }
@@ -49,7 +49,7 @@ const Login = () => {
                         </label>
                         <div className="flex relative">
                             <input {...register("password", { required: true })}
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type={passHidden ? "password" : "text"} placeholder="Enter Password" />
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" defaultValue={"1qW@34"} id="password" type={passHidden ? "password" : "text"} placeholder="Enter Password" />
                             {
                                 passHidden
                                     ? <FaRegEyeSlash onClick={() => setPassHidden(!passHidden)} className="absolute end-1 top-3 text-xl" />
